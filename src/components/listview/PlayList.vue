@@ -1,7 +1,7 @@
 <template>
   <div class="playlist">
     <div class="playlist-top">
-      <div class="left">
+      <div class="left" @click="playAll">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-bofang"></use>
         </svg>
@@ -43,15 +43,37 @@
 
 <script>
 import { Button } from "vant";
+// import { inject } from "vue";
 
 export default {
   props: ["playlist"],
   components: {
     [Button.name]: Button,
   },
+
   methods: {
     play(i) {
+      // console.log(i, this.$store.state.playCurrentIndex);
+      // 将歌单交给vuex
+      this.$store.commit("setPlaylist", this.playlist.tracks);
+      // 如果点击了当前播放的歌曲 不要暂停
+      if (i != this.$store.state.playCurrentIndex) {
+        this.$store.commit("setPaused", true);
+      }
       this.$store.commit("setPlayCurrentIndex", i);
+    },
+    playAll() {
+      // 跳到第一首歌
+      this.play(0);
+      // 获取audio标签
+      const playControlor = document.getElementById("playControl_doPlay");
+
+      // 调用play方法
+      this.$nextTick(() => {
+        playControlor.play();
+      });
+      // 通知vuex修改播放/暂停图标
+      this.$store.commit("setPaused", false);
     },
   },
 };
@@ -90,13 +112,20 @@ export default {
     justify-content: space-between;
     .left {
       display: flex;
+      width: 60vw;
       .index {
         width: 30px;
         text-align: center;
       }
       .context {
+        width: 50vw;
         display: flex;
         flex-direction: column;
+        .title {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
         .author {
           font-size: 12px;
           color: gray;

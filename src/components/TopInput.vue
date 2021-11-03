@@ -14,6 +14,6 @@ input {
   text-align: center;
   font-size: 14px;
   color: #ccc;
-  background-color:#999
+  background-color: #ccc;
 }
 </style>

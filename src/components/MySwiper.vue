@@ -1,17 +1,25 @@
 <template>
   <swipe :autoplay="3000" lazy-render class="swipe">
-    <swipe-item v-for="image in imgs" :key="image">
-      <img :src="image" />
+    <swipe-item v-for="image in imgs" :key="image" @click="goUrl(image.url)">
+      <img :src="image.pic" />
     </swipe-item>
   </swipe>
 </template>
 
 <script setup>
 import { Swipe, SwipeItem } from "vant";
+
 // 接收轮播图片
 const props = defineProps({
   imgs: Array,
+  nav: Array,
 });
+
+const goUrl = function (url) {
+  if (!url) return;
+  if (url.search("http") === -1) return;
+  window.location.href = url;
+};
 </script>
 
 <style lang="less" scoped>

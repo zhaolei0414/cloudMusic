@@ -1,5 +1,6 @@
 <template>
   <div class="listViewTop">
+    <!-- 背景图片 -->
     <img :src="playlist.coverImgUrl" alt="" />
     <nav class="listViewTopNav">
       <div class="left">
@@ -125,6 +126,8 @@ const props = defineProps(["playlist"]);
   .contextRight {
     margin-left: 15px;
     color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
     .author {
       display: flex;
       align-items: center;

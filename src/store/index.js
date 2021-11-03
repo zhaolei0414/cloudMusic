@@ -20,12 +20,17 @@ export default createStore({
     lyric: '',
     // 当前播放时间(毫秒)
     currentTime: 0,
+    // 当前播放的时间(百分比)
+    currentTimePrecent: 0,
+    // 总播放时长
+    duration: 0,
     // 是否播放
     paused: true
   },
   getters: {
     // 歌词 数组形式
     lyricList(state) {
+      // console.log(state.lyric);
       const arr = state.lyric.split(/\n/igs).map((item, i) => {
         let min = item.slice(1, 3)
         let sec = item.slice(4, 6)
@@ -34,7 +39,7 @@ export default createStore({
           min,
           sec,
           mill,
-          lyric: item.slice(10, item.length),
+          lyric: item.split(']')[1],
           content: item,
           time: parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000
         }
@@ -55,6 +60,8 @@ export default createStore({
     },
     setPlayCurrentIndex(state, value) {
       if (value < 0) return
+      const length = state.playlist.length
+      if (value > length) return
       state.playCurrentIndex = value
     },
     setLyric(state, value) {
@@ -62,6 +69,12 @@ export default createStore({
     },
     setCurrentTime(state, value) {
       state.currentTime = parseInt(value * 1000)
+    },
+    setcurrentTimePrecent(state, value) {
+      state.currentTimePrecent = value
+    },
+    setDuration(state, value) {
+      state.duration = value
     },
     setPaused(state, value) {
       state.paused = value
@@ -72,7 +85,7 @@ export default createStore({
       let result = await apigetPlayLyric({ id: payload })
       // console.log(result);
       content.commit('setLyric', result.lrc.lyric)
-      console.log(result.lrc.lyric);
+      // console.log(result.lrc.lyric);
     }
   },
   modules: {

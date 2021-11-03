@@ -25,7 +25,7 @@
     <div v-show="!isLyric" @click="isLyric = !isLyric" class="playContent">
       <img
         class="needle"
-        :class="{ active: !paused }"
+        :class="{ active: !$store.state.paused }"
         src="@/assets/imgs/needle-ab.png"
         alt=""
       />
@@ -47,7 +47,13 @@
         </li>
       </ul>
     </div>
-    <div class="progress"></div>
+    <div class="progress">
+      <Slider
+        v-model="sliderCurrentTime"
+        @change="onSliderChange"
+        button-size="18px"
+      />
+    </div>
     <div class="playFooter">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-danxunhuan"></use>
@@ -55,10 +61,20 @@
       <svg class="icon" aria-hidden="true" @click="goPlay(-1)">
         <use xlink:href="#icon-48shangyishou"></use>
       </svg>
-      <svg v-show="paused" class="icon play" aria-hidden="true" @click="play">
+      <svg
+        v-show="$store.state.paused"
+        class="icon play"
+        aria-hidden="true"
+        @click="play"
+      >
         <use xlink:href="#icon-bofang1-copy"></use>
       </svg>
-      <svg v-show="!paused" class="icon play" aria-hidden="true" @click="play">
+      <svg
+        v-show="!$store.state.paused"
+        class="icon play"
+        aria-hidden="true"
+        @click="play"
+      >
         <use xlink:href="#icon-zanting"></use>
       </svg>
       <svg class="icon" aria-hidden="true" @click="goPlay(1)">
@@ -72,8 +88,8 @@
 </template>
 
 <script setup>
-import { Popup } from "vant";
-import { ref, onMounted, onUnmounted } from "vue";
+import { Popup, Slider } from "vant";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { mapState, useStore } from "vuex";
 const props = defineProps({
   show: Boolean,
@@ -82,7 +98,7 @@ const props = defineProps({
   play: Function,
 });
 const isLyric = ref(false);
-const emit = defineEmits(["closePopUp"]);
+const emit = defineEmits(["closePopUp", "updateCurrentTime"]);
 const beforeClose = function () {
   emit("closePopUp");
 };
@@ -110,6 +126,8 @@ onUnmounted(() => {
 */
 let store = useStore();
 const goPlay = function (num) {
+  // 点击上一首，下一首时，将进度条归零
+  sliderCurrentTime.value = 0;
   let currentNum = store.state.playCurrentIndex + num;
   if (currentNum < 0) {
     currentNum = store.state.playlist.length - 1;
@@ -118,8 +136,30 @@ const goPlay = function (num) {
   }
   store.commit("setPlayCurrentIndex", currentNum);
   // console.log(store.state.playlist[currentNum].id);
+  store.commit("setPaused", true);
   store.dispatch("reqLyric", store.state.playlist[currentNum].id);
+  // props.mustPlay();
 };
+/* 
+  滑块 拖动滑块调整播放进度
+*/
+let sliderCurrentTime = ref(0);
+
+const onSliderChange = () => {
+  // console.log(sliderCurrentTime.value);
+  // 总时长
+  const duration = store.state.duration;
+  const current = duration * (sliderCurrentTime.value / 100);
+  // console.log(current);
+  emit("updateCurrentTime", current);
+};
+watch(
+  () => store.state.currentTimePrecent,
+  (current, prev) => {
+    // console.log(current);
+    sliderCurrentTime.value = current;
+  }
+);
 </script>
 
 
@@ -132,7 +172,7 @@ const goPlay = function (num) {
   width: 100vw;
   height: 100vh;
   background-size: auto 100%;
-  filter: blur(30px);
+  filter: blur(80px);
   z-index: -1;
 }
 .playTop {
@@ -223,5 +263,11 @@ const goPlay = function (num) {
     width: 0.8rem;
     height: 0.8rem;
   }
+}
+.progress {
+  position: absolute;
+  width: 100vw;
+  bottom: 60px;
+  left: 0;
 }
 </style>

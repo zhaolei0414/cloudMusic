@@ -29,8 +29,13 @@
         src="@/assets/imgs/needle-ab.png"
         alt=""
       />
-      <img src="@/assets/imgs/disc-circle.png" alt="" />
-      <img :src="playDetail.al.picUrl" alt="" />
+      <img src="@/assets/imgs/disc-circle.png" />
+      <img
+        :src="playDetail.al.picUrl"
+        alt=""
+        class="rotateImg"
+        :class="{ active: !$store.state.paused }"
+      />
     </div>
     <div v-show="isLyric" @click="isLyric = !isLyric" class="playLyric">
       <ul>
@@ -165,6 +170,15 @@ watch(
 
 
 <style lang="less" scoped>
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .bg {
   position: fixed;
   top: 0;
@@ -223,14 +237,19 @@ watch(
     transform: translateX(-50%);
     top: 100px;
   }
-  img:nth-child(3) {
+
+  .rotateImg {
     width: 3.15rem;
     height: 3.15rem;
     border-radius: 50%;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 30%;
     top: 147px;
+  }
+  .rotateImg.active {
+    transform-origin: center;
+    transform: translateX(-50%);
+    animation: rotate 6s infinite linear;
   }
 }
 .playLyric {

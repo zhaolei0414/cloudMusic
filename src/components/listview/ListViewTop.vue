@@ -12,7 +12,7 @@
         <div class="title">歌单</div>
       </div>
       <div class="right">
-        <svg class="icon" aria-hidden="true">
+        <svg class="icon" aria-hidden="true" @click="$router.push('/search')">
           <use xlink:href="#icon-sousuo"></use>
         </svg>
         <svg class="icon" aria-hidden="true">

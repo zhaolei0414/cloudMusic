@@ -12,6 +12,8 @@
       </Search>
       <span @click="$router.go(-1)">取 消</span>
     </CellGroup>
+    <!-- 搜索历史 -->
+    <History />
     <!-- 热搜 -->
     <Hot @searchHot="searchHot" />
     <!-- 弹出层 当按下enter搜索时显示 -->
@@ -20,7 +22,7 @@
       closeable
       @close="show = false"
       position="right"
-      :style="{ height: '100%', width: '100%' }"
+      :style="{ height: '100%', width: '100vw' }"
       close-icon-position="top-left"
     >
       <Row>
@@ -152,11 +154,14 @@ import {
 } from "vant";
 import { ref, reactive, nextTick } from "vue";
 import { useStore } from "vuex";
-import { useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 import { getDefault, getSuggest } from "@/api/search.js";
 import { getLocalTime } from "@/utils/getLocalTime.js";
 import Hot from "./childComponents/Hot.vue";
+import History from "./childComponents/History.vue";
 import { changeValue } from "@/utils/changeValue.js";
+import { saveLocalStorage } from "@/utils/utilsLocalStorage.js";
+
 let showKeyword = ref("");
 let realkeyword = ref("");
 let userInput = ref("");
@@ -178,8 +183,8 @@ const search = async () => {
   } else {
     inputValue.value = userInput.value;
   }
-  // console.log(value);
-
+  // 将用户搜索的内容存入localstorage
+  saveLocalStorage("history", inputValue.value);
   const data = await getSuggest({
     keywords: inputValue.value,
   });
@@ -346,8 +351,8 @@ const searchHot = (item) => {
 
   .left {
     img {
-      width: 100%;
-      height: 100%;
+      width: 40px;
+      height: 40px;
       border-radius: 15px;
     }
   }

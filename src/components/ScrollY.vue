@@ -11,7 +11,7 @@
 import BScroll from "@better-scroll/core";
 import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 const props = defineProps({
-  init: Boolean,
+  init: Boolean || Array,
 });
 // console.log(props);
 let bs = null;
@@ -21,7 +21,7 @@ function bsInit(doc) {
     probeType: 1, // listening scroll event
     click: true,
     tap: true,
-    bounce: false,
+    // bounce: false,
   });
 }
 const wrapper = ref(null);

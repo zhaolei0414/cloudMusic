@@ -166,7 +166,7 @@ watch(
 
 <style lang="less" scoped>
 .bg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -197,9 +197,8 @@ watch(
   }
 }
 .playContent {
-  position: absolute;
+  position: fixed;
   width: 100vw;
-  height: 100vh;
   left: 0;
   top: 1.5rem;
   .needle {
@@ -250,7 +249,7 @@ watch(
   }
 }
 .playFooter {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100vw;

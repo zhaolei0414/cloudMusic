@@ -1,24 +1,30 @@
 <template>
-  <nav class="topNav">
-    <div class="topLeft">
-      <slot name="left">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-danlieliebiao"></use>
-        </svg>
-      </slot>
-    </div>
-    <div class="topCenter">
-      <slot name="center"></slot>
-    </div>
-    <div class="topRight">
-      <slot name="right"></slot>
-    </div>
-  </nav>
+  <Sticky>
+    <nav class="topNav">
+      <div class="topLeft">
+        <slot name="left">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-danlieliebiao"></use>
+          </svg>
+        </slot>
+      </div>
+      <div class="topCenter">
+        <slot name="center"></slot>
+      </div>
+      <div class="topRight">
+        <slot name="right"></slot>
+      </div>
+    </nav>
+  </Sticky>
 </template>
 
 <script>
+import { Sticky } from "vant";
 export default {
   name: "TopNav",
+  components: {
+    Sticky,
+  },
 };
 </script>
 
@@ -29,7 +35,7 @@ export default {
   align-items: center;
   width: 375px;
   height: 40px;
-
+  background-color: #fff;
   .topLeft {
     width: 30px;
     padding: 0 10px;

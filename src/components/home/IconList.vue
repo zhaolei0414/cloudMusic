@@ -52,7 +52,7 @@ onUnmounted(() => {
 .scroll-wrapper {
   position: relative;
   width: 100vw;
-  height: 100px;
+  height: 100px !important;
   white-space: nowrap;
   margin-top: 15px;
   overflow: hidden;

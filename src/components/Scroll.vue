@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper">
+  <div ref="wrapper" class="scroll-wrapper">
     <slot></slot>
   </div>
 </template>
@@ -158,3 +158,11 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+.scroll-wrapper {
+  position: relative;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+</style>

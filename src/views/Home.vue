@@ -10,11 +10,17 @@
         </svg>
       </template>
     </TopNav>
-    <MySwiper :imgs="imgs" class="swiper"></MySwiper>
-    <IconList />
-    <!-- 推荐歌单 -->
-    <Personalized />
-    <TopList />
+
+    <div class="scroll-wrapper" ref="wrapper">
+      <div class="scroll-content">
+        <MySwiper :imgs="imgs" class="swiper"></MySwiper>
+        <IconList />
+        <!-- 推荐歌单 -->
+        <Personalized />
+        <TopList />
+      </div>
+    </div>
+
     <!-- <ArtistList /> -->
   </div>
 </template>
@@ -27,14 +33,41 @@ import TopNav from "../components/TopNav.vue";
 import IconList from "@/components/home/IconList.vue";
 import Personalized from "@/components/home/Personalized.vue";
 import TopList from "@/components/home/TopList.vue";
+
 // import ArtistList from "@/components/home/ArtistList.vue";
 // @ is an alias to /src
-import { reactive } from "vue";
+import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { apiBanner } from "@/api/home.js";
 import { getUserAgent } from "@/utils/getUserAgent";
-
+import BScroll from "@better-scroll/core";
 const name = "Home";
+
+/* 
+  bscroll
+*/
+let bs = null;
+function bsInit(doc) {
+  bs = new BScroll(doc, {
+    // scrollX: true,
+    probeType: 1, // listening scroll event
+    click: true,
+    tap: true,
+    // bounce: false,
+  });
+}
+const wrapper = ref(null);
+onMounted(() => {
+  const doc = wrapper.value;
+  bsInit(doc);
+});
+onBeforeUnmount(() => {
+  bs.destroy();
+});
+
+/* 
+bscroll ended
+*/
 const imgs = reactive([]);
 const nav = reactive([]);
 async function getSwiperInfo() {
@@ -59,6 +92,16 @@ const routerLinkTO = () => {
 </script>
 
 <style lang="less" scoped>
+.scroll-wrapper {
+  position: relative;
+  height: 90vh;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.scroll-content {
+  height: 120vh;
+  display: inline-block;
+}
 .swiper {
   margin-top: 15px;
   border-radius: 15px;

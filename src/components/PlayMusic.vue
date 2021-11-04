@@ -34,7 +34,7 @@
         :src="playDetail.al.picUrl"
         alt=""
         class="rotateImg"
-        :class="{ active: !$store.state.paused }"
+        :class="{ paused: $store.state.paused }"
       />
     </div>
     <div v-show="isLyric" @click="isLyric = !isLyric" class="playLyric">
@@ -245,11 +245,12 @@ watch(
     position: absolute;
     left: 30%;
     top: 147px;
-  }
-  .rotateImg.active {
     transform-origin: center;
     transform: translateX(-50%);
     animation: rotate 6s infinite linear;
+  }
+  .rotateImg.paused {
+    animation-play-state: paused;
   }
 }
 .playLyric {

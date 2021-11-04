@@ -157,7 +157,7 @@ export default {
   bottom: 0;
   z-index: 99999;
   width: 100vw;
-  height: 1.2rem;
+  height: 9vh;
   display: flex;
   justify-content: space-between;
   align-items: center;

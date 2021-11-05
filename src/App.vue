@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view class="routerView"></router-view>
+    <router-view></router-view>
     <PlayController></PlayController>
   </div>
 </template>
@@ -22,8 +22,5 @@ import PlayController from "@/components/PlayController.vue";
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
-}
-.routerView {
-  height: 93vh;
 }
 </style>

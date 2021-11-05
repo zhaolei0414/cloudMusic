@@ -3,7 +3,7 @@
     <nav class="topNav">
       <div class="topLeft">
         <slot name="left">
-          <svg class="icon" aria-hidden="true">
+          <svg class="icon" aria-hidden="true" @click="showSideBar">
             <use xlink:href="#icon-danlieliebiao"></use>
           </svg>
         </slot>
@@ -16,15 +16,37 @@
       </div>
     </nav>
   </Sticky>
+  <Popup
+    v-model:show="show"
+    position="left"
+    :style="{
+      height: '100%',
+      width: '80%',
+      zIndex: '100000',
+      backgroundColor: '#f7f8fa'
+    }"
+  >
+    <SiderBar></SiderBar>
+  </Popup>
 </template>
 
 <script>
-import { Sticky } from "vant";
+import { Sticky, Popup } from "vant";
 export default {
   name: "TopNav",
   components: {
     Sticky,
-  },
+    Popup
+  }
+};
+</script>
+
+<script setup>
+import { ref } from "vue";
+import SiderBar from "@/components/SiderBar/SiderBar.vue";
+const show = ref(false);
+const showSideBar = () => {
+  show.value = true;
 };
 </script>
 

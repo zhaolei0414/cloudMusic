@@ -38,5 +38,10 @@ export default {
   .icon {
     margin-right: 15px;
   }
+  span {
+    margin-top: 5px;
+    font-size: 12px;
+    color: --van-text-color-2;
+  }
 }
 </style>

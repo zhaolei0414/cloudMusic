@@ -22,7 +22,7 @@
       closeable
       @close="show = false"
       position="right"
-      :style="{ height: '100%', width: '100vw' }"
+      :style="{ height: '100%', width: '100%' }"
       close-icon-position="top-left"
     >
       <Row>
@@ -63,6 +63,7 @@
                 </div>
               </div>
             </li>
+            <li></li>
           </ul>
         </Tab>
         <Tab title="歌单">
@@ -88,6 +89,7 @@
                 </div>
               </li>
             </router-link>
+            <li></li>
           </ul>
         </Tab>
         <Tab title="歌手">
@@ -107,6 +109,7 @@
                 >
               </div>
             </li>
+            <li></li>
           </ul>
         </Tab>
         <Tab title="专辑">
@@ -131,6 +134,7 @@
                 >
               </div>
             </li>
+            <li></li>
           </ul>
         </Tab>
       </Tabs>

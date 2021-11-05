@@ -42,7 +42,7 @@ watch(props, (current, prev) => {
 .scroll-wrapper {
   position: relative;
   height: 90vh;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
 }
 .scroll-content {

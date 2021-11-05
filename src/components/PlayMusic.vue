@@ -7,6 +7,7 @@
     closeable
     close-icon-position="top-left"
     close-icon="arrow-down"
+    :overlay="false"
   >
     <div
       class="bg"
@@ -45,7 +46,7 @@
           :class="{
             active:
               item.time <= $store.state.currentTime &&
-              item.pre > $store.state.currentTime,
+              item.pre > $store.state.currentTime
           }"
         >
           {{ item.lyric }}
@@ -100,11 +101,11 @@ const props = defineProps({
   show: Boolean,
   playDetail: Object,
   paused: Boolean,
-  play: Function,
+  play: Function
 });
 const isLyric = ref(false);
 const emit = defineEmits(["closePopUp", "updateCurrentTime"]);
-const beforeClose = function () {
+const beforeClose = function() {
   emit("closePopUp");
 };
 /* 
@@ -130,7 +131,7 @@ onUnmounted(() => {
   上一首，下一首
 */
 let store = useStore();
-const goPlay = function (num) {
+const goPlay = function(num) {
   // 点击上一首，下一首时，将进度条归零
   sliderCurrentTime.value = 0;
   let currentNum = store.state.playCurrentIndex + num;

@@ -1,11 +1,11 @@
 <template>
-  <ScrollY :init="init">
+  <div class="root">
     <Loading v-show="isLoading" vertical class="loading" />
     <div v-show="!isLoading" class="listView">
       <ListViewTop :playlist="state.playlist"></ListViewTop>
       <PlayList :playlist="state.playlist"></PlayList>
     </div>
-  </ScrollY>
+  </div>
 </template>
 
 <script setup>
@@ -17,8 +17,7 @@ import { Loading } from "vant";
 // 导入组件
 import ListViewTop from "@/components/listview/ListViewTop.vue";
 import PlayList from "@/components/listview/PlayList.vue";
-import ScrollY from "@/components/ScrollY.vue";
-let init = ref(false);
+
 let isLoading = ref(true);
 const state = reactive({
   playlist: {
@@ -35,16 +34,17 @@ apiPlayListDetail({ id }).then((result) => {
   // store.commit("setPlaylist", result.playlist.tracks);
   nextTick(() => {
     isLoading.value = false;
-    setTimeout(() => {
-      init.value = true;
-    }, 20);
   });
 });
 </script>
 
 <style lang="less" scoped>
-.loading {
-  width: 100vw;
-  height: 100%;
+.root {
+  margin-bottom: 10vh;
+
+  .loading {
+    width: 100vw;
+    height: 100%;
+  }
 }
 </style>

@@ -3,6 +3,7 @@ import { apigetPlayLyric } from '@/api/playList.js'
 
 export default createStore({
   state: {
+    // 歌单
     playlist: [
       {
         name: '失眠飞行',
@@ -15,6 +16,7 @@ export default createStore({
         }
       }
     ],
+    // 当前播放的索引
     playCurrentIndex: 0,
     // 歌词
     lyric: '',
@@ -25,7 +27,7 @@ export default createStore({
     // 总播放时长
     duration: 0,
     // 是否播放
-    paused: true
+    paused: true,
   },
   getters: {
     // 歌词 数组形式

@@ -22,13 +22,13 @@ let isLoading = ref(true);
 const state = reactive({
   playlist: {
     creator: {},
-    tracks: [],
-  },
+    tracks: []
+  }
 });
 const store = useStore();
 const route = useRoute();
 const id = route.query.id;
-apiPlayListDetail({ id }).then((result) => {
+apiPlayListDetail({ id }).then(result => {
   state.playlist = result.playlist;
   // console.log(state.playlist.tracks);
   // store.commit("setPlaylist", result.playlist.tracks);
@@ -40,7 +40,7 @@ apiPlayListDetail({ id }).then((result) => {
 
 <style lang="less" scoped>
 .root {
-  margin-bottom: 10vh;
+  margin-bottom: 13vh;
 
   .loading {
     width: 100vw;

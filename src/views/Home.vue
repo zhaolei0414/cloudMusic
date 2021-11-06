@@ -17,7 +17,10 @@
         <IconList />
         <!-- 推荐歌单 -->
         <Personalized />
+        <!-- 排行榜 -->
         <TopList />
+        <!-- 编辑推荐 -->
+        <HomeLists />
       </div>
     </div>
 
@@ -33,16 +36,18 @@ import TopNav from "../components/TopNav.vue";
 import IconList from "@/components/home/IconList.vue";
 import Personalized from "@/components/home/Personalized.vue";
 import TopList from "@/components/home/TopList.vue";
+import HomeLists from "@/components/home/HomeLists.vue";
 
 // import ArtistList from "@/components/home/ArtistList.vue";
 // @ is an alias to /src
 import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import { apiBanner } from "@/api/home.js";
+import { useStore } from "vuex";
+import { apiBanner, getAllHomeData } from "@/api/home.js";
 import { getUserAgent } from "@/utils/getUserAgent";
 import BScroll from "@better-scroll/core";
 const name = "Home";
-
+const store = useStore();
 /* 
   bscroll
 */
@@ -52,7 +57,7 @@ function bsInit(doc) {
     // scrollX: true,
     probeType: 1, // listening scroll event
     click: true,
-    tap: true,
+    tap: true
     // bounce: false,
   });
 }
@@ -68,6 +73,10 @@ onBeforeUnmount(() => {
 /* 
 bscroll ended
 */
+
+/* 
+  首页轮播
+*/
 const imgs = reactive([]);
 const nav = reactive([]);
 async function getSwiperInfo() {
@@ -75,35 +84,47 @@ async function getSwiperInfo() {
   const { banners } = await apiBanner({ type: type });
   // 轮播图数据 banners
   // console.log(banners);
-  const banner = banners.map((item) => {
+  const banner = banners.map(item => {
     return {
       pic: item.pic,
-      url: item.url,
+      url: item.url
     };
   });
   imgs.push(...banner);
 }
 getSwiperInfo();
-
+/* 
+  跳转搜索页
+*/
 const router = useRouter();
 const routerLinkTO = () => {
   router.push("/search");
 };
+/* 
+  获取所有首页数据
+*/
+const homeData = reactive([]);
+async function getAll() {
+  const res = await getAllHomeData();
+  console.log(res.data.blocks);
+  store.commit("setHomeInfo", res.data.blocks);
+}
+getAll();
 </script>
 
 <style lang="less" scoped>
 .scroll-wrapper {
   position: relative;
-  height: 90vh;
+  height: 82vh;
   white-space: nowrap;
   overflow: hidden;
 }
 .scroll-content {
-  height: 120vh;
+  height: 160vh;
   display: inline-block;
 }
 .swiper {
   margin-top: 15px;
-  border-radius: 15px;
+  // border-radius: 15px;
 }
 </style>

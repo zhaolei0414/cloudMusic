@@ -11,6 +11,18 @@ if (process.env.NODE_ENV == 'development') {
 
 // 请求超时时间
 axios.defaults.timeout = 10000;
+// 请求拦截
+axios.interceptors.request.use(config => {
+  // 在发送请求前要做的事儿
+  // const cookie = localStorage.getItem('cookie')
+
+  // console.log(config);
+  return config
+}, err => {
+  // 在请求错误时要做的事儿
+  return Promise.reject(err)
+})
+
 
 // post请求头
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -21,15 +33,18 @@ axios.defaults.timeout = 10000;
  * @param {Object} params [请求时携带的参数] 
  */
 export function get(url, params) {
+  const obj = Object.assign({
+    cookie: localStorage.getItem('cookie'),
+  }, params)
   return new Promise((resolve, reject) => {
     axios.get(url, {
-      params: params
+      params: obj
     })
       .then(res => {
         resolve(res.data);
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   });
 }
@@ -40,13 +55,17 @@ export function get(url, params) {
  * @param {Object} params [请求时携带的参数] 
  */
 export function post(url, params) {
+
   return new Promise((resolve, reject) => {
-    axios.post(url, params)
+    const obj = Object.assign({
+      cookie: localStorage.getItem('cookie')
+    }, params)
+    axios.post(url, obj)
       .then(res => {
-        resolve(res.data);
+        resolve(res);
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   });
 }

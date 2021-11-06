@@ -4,6 +4,10 @@
 
 import { get } from './index.js'
 
+// 说明: 调用此接口, 可获取APP首页信息
+// 可选参数 : refresh: 是否刷新数据,默认为false
+// cursor: 上一条数据返回的cursor
+export const getAllHomeData = (p) => get('/homepage/block/page', p)
 // 首页轮播图
 export const apiBanner = (p) => get('/banner', p)
 

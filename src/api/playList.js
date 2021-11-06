@@ -10,6 +10,8 @@ import { get } from './index.js'
 // 可选参数 : s : 歌单最近的 s 个收藏者,默认为8
 // 调用例子 : /playlist/detail?id=24381616
 export const apiPlayListDetail = (p) => get('/playlist/detail', p)
+export const apiPlayListDetailAll = (p) => get('song/detail', p)
+
 // 获取歌词
 // 说明 : 调用此接口 , 传入音乐 id 可获得对应音乐的歌词 ( 不需要登录 )
 // 必选参数 : id: 音乐 id

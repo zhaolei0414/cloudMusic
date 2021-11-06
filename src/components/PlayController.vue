@@ -1,4 +1,5 @@
 <template>
+  <!-- 如果在登录界面，隐藏 -->
   <div class="playController">
     <div class="left" @click="showPopUp">
       <img :src="playlist[playCurrentIndex].al.picUrl" alt="" />
@@ -36,7 +37,9 @@
       @timeupdate="updateTime"
       @ended="ended"
       @error="error"
-      :src="`https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`"
+      :src="
+        `https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`
+      "
     ></audio>
     <PlayMusic
       :show="show"
@@ -56,10 +59,10 @@ import { mapState, useStore } from "vuex";
 import { Toast } from "vant";
 export default {
   components: {
-    PlayMusic,
+    PlayMusic
   },
   computed: {
-    ...mapState(["playlist", "playCurrentIndex"]),
+    ...mapState(["playlist", "playCurrentIndex"])
   },
   mounted() {
     this.$store.dispatch("reqLyric", this.playlist[this.playCurrentIndex].id);
@@ -71,7 +74,7 @@ export default {
     const store = useStore();
     const paused = ref(true);
     const audio = ref(null);
-    const play = function () {
+    const play = function() {
       if (audio.value.paused) {
         audio.value.play();
         store.dispatch(
@@ -95,10 +98,10 @@ export default {
     展示详情页
     */
     const show = ref(false);
-    const showPopUp = function () {
+    const showPopUp = function() {
       show.value = true;
     };
-    const closePopUp = function () {
+    const closePopUp = function() {
       show.value = false;
     };
     /* 
@@ -107,7 +110,7 @@ export default {
     // 播放进度百分比
     let currentTimePercent = ref(0);
     //  audio标签提供的api 当播放时触发钩子
-    const updateTime = function () {
+    const updateTime = function() {
       // console.log(audio.value.currentTime, audio.value.duration);
       currentTimePercent.value = +(
         (audio.value.currentTime / audio.value.duration) *
@@ -130,7 +133,7 @@ export default {
         play();
       });
     };
-    const updateCurrentTime = (time) => {
+    const updateCurrentTime = time => {
       audio.value.currentTime = time;
     };
     return {
@@ -144,20 +147,16 @@ export default {
       ended,
       error,
       currentTimePercent,
-      updateCurrentTime,
+      updateCurrentTime
     };
-  },
+  }
 };
 </script>
 
 <style lang="less" scoped>
 .playController {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 99999;
   width: 100vw;
-  height: 9vh;
+  height: 7vh;
   display: flex;
   justify-content: space-between;
   align-items: center;

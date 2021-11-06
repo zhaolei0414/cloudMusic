@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex box1">
-      <h3>推荐歌单</h3>
+      <h3>编辑推荐</h3>
       <span class="more">更多</span>
     </div>
     <div class="scroll-wrapper" ref="wrapper">
@@ -34,7 +34,7 @@ import BScroll from "@better-scroll/core";
 	 */
 const list = reactive([]);
 // limit: 取出数量 , 默认为 30 (不支持 offset)
-apiPersonalized({ limit: 9 }).then((res) => {
+apiPersonalized({ limit: 9 }).then(res => {
   const { result: data } = res;
   list.push(...data);
 });
@@ -47,7 +47,7 @@ function bsInit(doc) {
     scrollX: true,
     probeType: 3, // listening scroll event
     click: true,
-    tap: true,
+    tap: true
   });
 }
 const wrapper = ref(null);
@@ -69,27 +69,6 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   padding: 0 20px;
   margin-bottom: 5px;
-}
-.more {
-  position: relative;
-  width: 50px;
-  height: 25px;
-  text-align: center;
-  line-height: 25px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  font-size: 12px;
-}
-.more::after {
-  content: "";
-  position: absolute;
-  right: 5px;
-  top: 10px;
-  width: 5px;
-  height: 5px;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
-  transform: rotate(-45deg);
 }
 
 .scroll-wrapper {

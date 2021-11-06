@@ -16,7 +16,7 @@ function bsInit(doc) {
     scrollX: true,
     probeType: 1, // listening scroll event
     click: true,
-    tap: true,
+    tap: true
   });
 }
 const wrapper = ref(null);

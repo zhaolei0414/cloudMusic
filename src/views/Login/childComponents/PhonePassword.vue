@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar
-      title="网易邮箱登录"
+      title="手机号登录"
       left-arrow
       @click-left="$router.go(-1)"
       :border="false"
@@ -9,12 +9,13 @@
     <CellGroup inset>
       <!-- 输入手机号，调起手机号键盘 -->
       <Field
-        v-model="mail"
-        label="邮箱"
+        v-model="tel"
+        type="tel"
+        label="+86"
         label-width="3.1em"
         autofocus
         clearable
-        placeholder="请输入网易邮箱号"
+        placeholder="请输入手机号"
         :style="{ borderBottom: '1px solid var(--van-border-color)' }"
         class="field"
       />
@@ -43,9 +44,9 @@
 
 <script setup>
 import { NavBar, Field, CellGroup, Button, Toast } from "vant";
-import { postLoginMail } from "@/api/login.js";
+import { postLoginInfo } from "@/api/login.js";
 import { ref } from "vue";
-const mail = ref("");
+const tel = ref("");
 const password = ref("");
 const checkTel = () => {
   // console.log(tel.value);
@@ -54,31 +55,26 @@ const checkTel = () => {
 };
 const sendLoginInfo = async () => {
   try {
-    const result = await postLoginMail({
-      email: mail.value,
+    const result = await postLoginInfo({
+      phone: tel.value,
       password: password.value
     });
     console.log(result);
-    //  ...
     if (result.data.code === 200) {
       localStorage.setItem("userInfo", JSON.stringify(result.data));
       // 将得到的用户信息保存到 localStorage
       localStorage.setItem("token", resData.data.token); //暂不知怎么用
-
       // 保存cookie 请求时带上cookie
       localStorage.setItem("cookie", encodeURIComponent(resData.data.cookie));
 
-      router.replace({
-        name: "Home"
-      });
+      // ...
     } else if (result.data.code === 502) {
-      Toast.fail("账号或密码错误");
+      Toast.fail("密码错误");
       password.value = "";
-    } else if (result.data.code === 250) {
-      Toast.fail(result.data.message);
     }
   } catch (error) {
     Toast.fail("账户不存在");
+    // 可跳转到注册页
   }
 };
 </script>

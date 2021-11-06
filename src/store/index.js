@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { apigetPlayLyric } from '@/api/playList.js'
-
+import { getLoginStatus } from "@/api/login.js";
 export default createStore({
   state: {
     // 歌单
@@ -28,6 +28,14 @@ export default createStore({
     duration: 0,
     // 是否播放
     paused: true,
+    // 用户信息表
+    userInfo: {
+      phone: ''
+    },
+    // 是否是登录状态？
+    isLogin: false,
+    // 首页的数据
+    homeInfo: []
   },
   getters: {
     // 歌词 数组形式
@@ -57,6 +65,9 @@ export default createStore({
     }
   },
   mutations: {
+    /* 
+      控制播放器相关
+    */
     setPlaylist(state, value) {
       state.playlist = value
     },
@@ -80,6 +91,26 @@ export default createStore({
     },
     setPaused(state, value) {
       state.paused = value
+    },
+    /* 
+    控制用户信息相关
+    */
+    setUserPhone(state, value) {
+      state.userInfo.phone = value
+    },
+    setUserInfo(state, value) {
+      // value 是一个对象
+
+      Object.assign(state.userInfo, value)
+    },
+    setHomeInfo(state, value) {
+      state.homeInfo = value
+    },
+    setLogin(state, value) {
+      if (typeof value !== 'boolean') {
+        return new Error('请传入布尔值')
+      }
+      state.isLogin = value
     }
   },
   actions: {
@@ -88,6 +119,20 @@ export default createStore({
       // console.log(result);
       content.commit('setLyric', result.lrc.lyric)
       // console.log(result.lrc.lyric);
+    },
+    async checkLogin(content, payload) {
+      try {
+        let result = await getLoginStatus()
+        console.log(result.data);
+        if (result.data.code === 200) {
+          // 登录状态
+          content.commit('setLogin', true)
+          // 将用户信息保存
+          content.commit('setUserInfo', result.data.profile)
+        }
+      } catch (error) {
+        console.log(error, '需要登录code 301');
+      }
     }
   },
   modules: {

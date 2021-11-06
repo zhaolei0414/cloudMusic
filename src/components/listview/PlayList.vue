@@ -48,7 +48,7 @@ import { Button } from "vant";
 export default {
   props: ["playlist"],
   components: {
-    [Button.name]: Button,
+    [Button.name]: Button
   },
 
   methods: {
@@ -74,8 +74,8 @@ export default {
       });
       // 通知vuex修改播放/暂停图标
       this.$store.commit("setPaused", false);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -127,8 +127,10 @@ export default {
           text-overflow: ellipsis;
         }
         .author {
+          height: 32px;
           font-size: 12px;
           color: gray;
+          overflow: hidden;
         }
       }
     }

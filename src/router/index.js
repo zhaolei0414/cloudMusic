@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-
+import User from '../views/TabBarView/User/User.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: User,
   },
   {
     path: '/login',
@@ -19,7 +24,29 @@ const routes = [
       {
         path: 'mobile',
         name: 'Mobile',
-        component: () => import('../views/Login/childComponents/Mobile.vue')
+        component: () => import('../views/Login/childComponents/Mobile.vue'),
+        children: [
+          {
+            path: 'captcha',
+            name: 'Captcha',
+            component: () => import('../views/Login/childComponents/Captcha.vue'),
+            beforeEnter: (to, from, next) => {
+              // ...
+              if (to.path === '/login/mobile/captcha' && to.query.phone) {
+                next()
+              } else {
+                next({
+                  name: 'Login'
+                })
+              }
+            }
+          },
+          {
+            path: 'phonePassword',
+            name: 'PhonePassword',
+            component: () => import('../views/Login/childComponents/PhonePassword.vue')
+          }
+        ]
       },
       {
         path: 'email',

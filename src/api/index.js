@@ -33,9 +33,12 @@ axios.interceptors.request.use(config => {
  * @param {Object} params [请求时携带的参数] 
  */
 export function get(url, params) {
-  const obj = Object.assign({
-    cookie: localStorage.getItem('cookie'),
-  }, params)
+  const cookieStr = localStorage.getItem('cookie')
+  const obj1 = {}
+  if (cookieStr) {
+    obj1.cookie = cookieStr
+  }
+  const obj = Object.assign(obj1, params)
   return new Promise((resolve, reject) => {
     axios.get(url, {
       params: obj
@@ -55,11 +58,13 @@ export function get(url, params) {
  * @param {Object} params [请求时携带的参数] 
  */
 export function post(url, params) {
-
   return new Promise((resolve, reject) => {
-    const obj = Object.assign({
-      cookie: localStorage.getItem('cookie')
-    }, params)
+    const cookieStr = localStorage.getItem('cookie')
+    const obj1 = {}
+    if (cookieStr) {
+      obj1.cookie = cookieStr
+    }
+    const obj = Object.assign(obj1, params)
     axios.post(url, obj)
       .then(res => {
         resolve(res);

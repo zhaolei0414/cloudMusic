@@ -46,6 +46,7 @@
 import { NavBar, Field, CellGroup, Button, Toast } from "vant";
 import { postLoginInfo } from "@/api/login.js";
 import { ref } from "vue";
+import { useStore } from "vuex";
 const tel = ref("");
 const password = ref("");
 const checkTel = () => {
@@ -63,10 +64,11 @@ const sendLoginInfo = async () => {
     if (result.data.code === 200) {
       localStorage.setItem("userInfo", JSON.stringify(result.data));
       // 将得到的用户信息保存到 localStorage
-      localStorage.setItem("token", resData.data.token); //暂不知怎么用
+      localStorage.setItem("token", result.data.token); //暂不知怎么用
       // 保存cookie 请求时带上cookie
-      localStorage.setItem("cookie", encodeURIComponent(resData.data.cookie));
-
+      localStorage.setItem("cookie", encodeURIComponent(result.data.cookie));
+      // 登录完成 更新状态
+      store.dispatch("checkLogin");
       // ...
     } else if (result.data.code === 502) {
       Toast.fail("密码错误");

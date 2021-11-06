@@ -124,7 +124,7 @@ export default createStore({
       try {
         let result = await getLoginStatus()
         console.log(result.data);
-        if (result.data.code === 200) {
+        if (result.data.code === 200 && result.data.profile !== null) {
           // 登录状态
           content.commit('setLogin', true)
           // 将用户信息保存

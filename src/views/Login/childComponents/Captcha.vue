@@ -59,13 +59,13 @@ watch(value, async () => {
         captcha: value.value
       });
       console.log(resData.data);
- localStorage.setItem("userInfo", JSON.stringify(result.data));
+      localStorage.setItem("userInfo", JSON.stringify(resData.data));
       // 将得到的用户信息保存到 localStorage
       localStorage.setItem("token", resData.data.token); //暂不知怎么用
-
       // 保存cookie 请求时带上cookie
       localStorage.setItem("cookie", encodeURIComponent(resData.data.cookie));
-
+      // 登录完成 更新状态
+      store.dispatch("checkLogin");
       //  ...
 
       router.replace({

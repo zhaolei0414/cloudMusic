@@ -45,6 +45,8 @@
 import { NavBar, Field, CellGroup, Button, Toast } from "vant";
 import { postLoginMail } from "@/api/login.js";
 import { ref } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 const mail = ref("");
 const password = ref("");
 const checkTel = () => {
@@ -63,11 +65,12 @@ const sendLoginInfo = async () => {
     if (result.data.code === 200) {
       localStorage.setItem("userInfo", JSON.stringify(result.data));
       // 将得到的用户信息保存到 localStorage
-      localStorage.setItem("token", resData.data.token); //暂不知怎么用
+      localStorage.setItem("token", result.data.token); //暂不知怎么用
 
       // 保存cookie 请求时带上cookie
-      localStorage.setItem("cookie", encodeURIComponent(resData.data.cookie));
-
+      localStorage.setItem("cookie", encodeURIComponent(result.data.cookie));
+      // 登录完成 更新状态
+      store.dispatch("checkLogin");
       router.replace({
         name: "Home"
       });

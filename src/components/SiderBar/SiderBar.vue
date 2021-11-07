@@ -23,13 +23,20 @@
           <Icon name="arrow" />
         </Col>
       </Row>
-      <Button type="danger" size="normal" round>退出登录</Button>
+      <Button @click="logout" type="danger" size="normal" round
+        >退出登录</Button
+      >
     </div>
   </div>
 </template>
 
 <script setup>
 import { Col, Row, Icon, Button } from "vant";
+import { useStore } from "vuex";
+const store = useStore();
+const logout = () => {
+  store.dispatch("logout");
+};
 </script>
 
 <style scoped lang="less">

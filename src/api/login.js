@@ -48,3 +48,9 @@ export const getLoginRefresh = () => get('/login/refresh')
 接口地址 : /login/status
 */
 export const getLoginStatus = () => get('/login/status')
+
+// 退出登录
+// 说明 : 调用此接口 , 可退出登录
+
+// 调用例子 : /logout
+export const getLogout = () => get('/logout')

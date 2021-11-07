@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { apigetPlayLyric } from '@/api/playList.js'
-import { getLoginStatus } from "@/api/login.js";
+import { getLoginStatus, getLogout } from "@/api/login.js";
 export default createStore({
   state: {
     // 歌单
@@ -100,8 +100,18 @@ export default createStore({
     },
     setUserInfo(state, value) {
       // value 是一个对象
+      // 如果传一个空对象，清空数据
+      if (Object.keys(value).length === 0) {
+        // 清空
+        for (let i in state.userInfo) {
+          if (i !== 'phone') {
+            delete state.userInfo[i]
+          }
+        }
+      } else {
+        Object.assign(state.userInfo, value)
+      }
 
-      Object.assign(state.userInfo, value)
     },
     setHomeInfo(state, value) {
       state.homeInfo = value
@@ -120,6 +130,7 @@ export default createStore({
       content.commit('setLyric', result.lrc.lyric)
       // console.log(result.lrc.lyric);
     },
+    // 检查是否登录，如果是登录状态，获取用户信息，保存
     async checkLogin(content, payload) {
       try {
         let result = await getLoginStatus()
@@ -132,6 +143,19 @@ export default createStore({
         }
       } catch (error) {
         console.log(error, '需要登录code 301');
+      }
+    },
+    async logout(content, payload) {
+      const res = await getLogout()
+      if (res.code === 200) {
+        // 退出登录,清除用户信息
+        content.commit('setLogin', false)
+        content.commit('setUserInfo', {})
+        localStorage.removeItem('userInfo')
+        localStorage.removeItem('cookie')
+        localStorage.removeItem('token')
+        // 刷新页面
+        location.reload()
       }
     }
   },

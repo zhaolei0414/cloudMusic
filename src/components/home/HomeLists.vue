@@ -8,35 +8,19 @@
       </div>
       <span class="more">更多</span>
     </nav>
-    <main>
-      <ScrollX class="scroll">
-        <div class="contain">
-          <div class="self">
-            <div>
-              <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-              </ul>
-            </div>
-            <div>2</div>
-            <div>3</div>
-          </div>
-          <div class="self">
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-          </div>
-        </div>
-      </ScrollX>
-    </main>
+    <Swipe class="my-swipe" indicator-color="white">
+      <Swipe-item>1</Swipe-item>
+      <Swipe-item>2</Swipe-item>
+      <Swipe-item>3</Swipe-item>
+      <Swipe-item>4</Swipe-item>
+    </Swipe>
   </div>
 </template>
 
 <script setup>
-import ScrollX from "@/components/ScrollX.vue";
 import { reactive } from "vue";
 import { useStore } from "vuex";
+import { Swipe, SwipeItem } from "vant";
 const store = useStore();
 </script>
 
@@ -62,19 +46,9 @@ const store = useStore();
       }
     }
   }
-  main {
-    .scroll {
-      .contain {
-        display: flex;
-        .self {
-          display: flex;
-          width: 100vw;
-          div {
-            width: 33.3vw;
-          }
-        }
-      }
-    }
-  }
+}
+.swiper {
+  width: 600px;
+  height: 300px;
 }
 </style>

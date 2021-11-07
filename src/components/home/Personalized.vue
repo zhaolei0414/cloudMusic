@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex box1">
-      <h3>编辑推荐</h3>
+      <h3>推荐歌单</h3>
       <span class="more">更多</span>
     </div>
     <div class="scroll-wrapper" ref="wrapper">

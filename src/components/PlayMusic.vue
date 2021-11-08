@@ -1,13 +1,13 @@
 <template>
   <Popup
     :before-close="beforeClose"
-    :show="props.show"
-    position="bottom"
+    v-model:show="props.show"
+    :overlay="false"
     :style="{ height: '100%' }"
     closeable
+    position="bottom"
     close-icon-position="top-left"
     close-icon="arrow-down"
-    :overlay="false"
   >
     <div
       class="bg"

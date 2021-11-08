@@ -19,7 +19,7 @@
         <Personalized />
         <!-- 排行榜 -->
         <TopList />
-        <!-- 编辑推荐 -->
+        <!-- 为你推荐 -->
         <HomeLists />
       </div>
     </div>
@@ -100,16 +100,6 @@ const router = useRouter();
 const routerLinkTO = () => {
   router.push("/search");
 };
-/* 
-  获取所有首页数据
-*/
-const homeData = reactive([]);
-async function getAll() {
-  const res = await getAllHomeData();
-  console.log(res.data.blocks);
-  store.commit("setHomeInfo", res.data.blocks);
-}
-getAll();
 </script>
 
 <style lang="less" scoped>

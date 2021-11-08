@@ -17,6 +17,7 @@ export default {};
   flex-direction: row;
 }
 .box1 {
+  width: 100vw;
   justify-content: space-between;
   padding: 0 20px;
   margin-bottom: 5px;

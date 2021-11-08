@@ -67,6 +67,7 @@ onBeforeUnmount(() => {
 }
 .box1 {
   justify-content: space-between;
+  width: 100vw;
   padding: 0 20px;
   margin-bottom: 5px;
 }

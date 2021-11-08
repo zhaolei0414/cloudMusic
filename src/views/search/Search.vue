@@ -13,7 +13,7 @@
       <span @click="$router.go(-1)">取 消</span>
     </CellGroup>
     <!-- 搜索历史 -->
-    <History />
+    <History @searchHistory="searchHot" />
     <!-- 热搜 -->
     <Hot @searchHot="searchHot" />
     <!-- 弹出层 当按下enter搜索时显示 -->
@@ -96,7 +96,12 @@
           <Loading vertical v-if="loadingTwo" />
           <ul v-else>
             <!-- id: 歌手id -->
-            <li v-for="item in tabs.artists" :key="item.id" class="artists">
+            <li
+              v-for="item in tabs.artists"
+              :key="item.id"
+              @click="showArtistView(item.id)"
+              class="artists"
+            >
               <div class="left">
                 <img :src="item.picUrl" alt="" />
               </div>
@@ -154,7 +159,7 @@ import {
   Row,
   Sticky,
   Loading,
-  Button,
+  Button
 } from "vant";
 import { ref, reactive, nextTick } from "vue";
 import { useStore } from "vuex";
@@ -169,16 +174,17 @@ import { saveLocalStorage } from "@/utils/utilsLocalStorage.js";
 let showKeyword = ref("");
 let realkeyword = ref("");
 let userInput = ref("");
+const router = useRouter();
 
 // 获取默认搜索关键词
-getDefault().then((res) => {
+getDefault().then(res => {
   showKeyword.value = res.data.showKeyword;
   realkeyword.value = res.data.realkeyword;
 });
 
 // 搜索 默认单曲推荐
 const recommendSongs = reactive({
-  songsList: [],
+  songsList: []
 });
 let inputValue = ref("");
 const search = async () => {
@@ -190,7 +196,7 @@ const search = async () => {
   // 将用户搜索的内容存入localstorage
   saveLocalStorage("history", inputValue.value);
   const data = await getSuggest({
-    keywords: inputValue.value,
+    keywords: inputValue.value
   });
   show.value = true;
   // console.log(data.result.songs);
@@ -214,14 +220,14 @@ let loadingThree = ref(true);
 const tabs = reactive({
   songList: [],
   artists: [],
-  albums: [],
+  albums: []
 });
-const onClickTab = async (title) => {
+const onClickTab = async title => {
   // 点击歌单标签页 获取歌单数据
   if (title.name === 1) {
     const res = await getSuggest({
       keywords: inputValue.value,
-      type: 1000,
+      type: 1000
     });
     // console.log(res.result.playlists);
     tabs.songList = res.result.playlists;
@@ -233,7 +239,7 @@ const onClickTab = async (title) => {
   if (title.name === 2) {
     const res = await getSuggest({
       keywords: inputValue.value,
-      type: 100,
+      type: 100
     });
     // console.log(res.result.artists);
     tabs.artists = res.result.artists;
@@ -244,7 +250,7 @@ const onClickTab = async (title) => {
   if (title.name === 3) {
     const res = await getSuggest({
       keywords: inputValue.value,
-      type: 10,
+      type: 10
     });
     // console.log(res.result.albums);
     tabs.albums = res.result.albums;
@@ -257,19 +263,19 @@ const onClickTab = async (title) => {
   点击li标签播放音乐(单曲)
 */
 const store = useStore();
-const playList = (i) => {
+const playList = i => {
   // 将歌单推入playlist
   // console.log(i);
   // console.log(recommendSongs);
-  const playlist = recommendSongs.songsList.map((item) => {
+  const playlist = recommendSongs.songsList.map(item => {
     return {
       name: item.name,
       id: item.id,
       al: {
         id: item.artists[0].id,
         name: item.artists[0].name,
-        picUrl: item.artists[0].img1v1Url,
-      },
+        picUrl: item.artists[0].img1v1Url
+      }
     };
   });
   // console.log(playlist);
@@ -282,23 +288,36 @@ const playList = (i) => {
 };
 
 /* 
+  点击歌手标签页li 跳转到歌手页面
+*/
+
+const showArtistView = id => {
+  router.push({
+    name: "Artist",
+    query: {
+      id: id
+    }
+  });
+};
+
+/* 
   点击专辑标签页上的li 跳转到专辑页面
 */
-const router = useRouter();
+
 // const route = useRoute();
-const routerToAlbumsView = (id) => {
+const routerToAlbumsView = id => {
   console.log(id);
   router.push({
     name: "Album",
     query: {
-      id,
-    },
+      id
+    }
   });
 };
 /* 
   点击热词调用search事件
 */
-const searchHot = (item) => {
+const searchHot = item => {
   userInput.value = item;
   search();
 };

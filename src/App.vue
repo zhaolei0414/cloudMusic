@@ -24,7 +24,9 @@ store.dispatch("checkLogin");
   box-sizing: border-box;
   font-family: "微软雅黑";
 }
-
+body {
+  background-color: var(--van-background-color);
+}
 .icon {
   width: 1.5em;
   height: 1.5em;
@@ -45,6 +47,7 @@ store.dispatch("checkLogin");
 // 更多标签页
 .more {
   position: relative;
+  justify-self: end;
   width: 50px;
   height: 25px;
   text-align: center;

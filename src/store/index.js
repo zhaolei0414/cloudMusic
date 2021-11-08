@@ -34,8 +34,7 @@ export default createStore({
     },
     // 是否是登录状态？
     isLogin: false,
-    // 首页的数据
-    homeInfo: []
+
   },
   getters: {
     // 歌词 数组形式
@@ -113,9 +112,7 @@ export default createStore({
       }
 
     },
-    setHomeInfo(state, value) {
-      state.homeInfo = value
-    },
+
     setLogin(state, value) {
       if (typeof value !== 'boolean') {
         return new Error('请传入布尔值')

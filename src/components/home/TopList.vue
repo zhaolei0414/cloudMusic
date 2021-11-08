@@ -23,14 +23,14 @@ import ListNav from "@/components/ListNav.vue";
 
 import { reactive } from "vue";
 const state = reactive({
-  list: [],
+  list: []
 });
-getTopList().then((res) => {
+getTopList().then(res => {
   // console.log(res.list);
-  let map = res.list.map((item) => {
+  let map = res.list.map(item => {
     return {
       coverImgUrl: item.coverImgUrl,
-      id: item.id,
+      id: item.id
     };
   });
   // console.log(map);

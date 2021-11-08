@@ -1,5 +1,5 @@
 <template>
-  <swipe :autoplay="3000" lazy-render class="myswipe" :width="375">
+  <swipe :autoplay="3000" lazy-render class="myswipe">
     <!-- @click="goUrl(image.url)" -->
     <swipe-item v-for="image in imgs" :key="image">
       <img
@@ -46,9 +46,14 @@ const goUrl = function(url) {
 
 <style lang="less" scoped>
 .myswipe {
+  width: 375px;
+  height: 145px;
+  border-radius: 15px 15px 20px 20px;
   img {
-    width: 375px;
-    height: 145px;
+    width: 100%;
+    height: 100%;
+    // width: 375px;
+    // height: 145px;
     border-radius: 15px 15px 20px 20px;
   }
 }

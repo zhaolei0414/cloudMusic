@@ -75,4 +75,7 @@ a {
 .bottomView {
   height: 107px;
 }
+.inexa {
+  z-index: 999999 !important;
+}
 </style>

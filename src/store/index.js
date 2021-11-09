@@ -80,6 +80,7 @@ export default createStore({
       state.lyric = value
     },
     setCurrentTime(state, value) {
+      // console.log(value);
       state.currentTime = parseInt(value * 1000)
     },
     setcurrentTimePrecent(state, value) {

@@ -75,6 +75,7 @@
               v-for="(item, i) in topSongData.songs"
               :key="item.id"
               class="topSongList"
+              @click="play(i)"
             >
               <div class="left">
                 <div class="index">{{ i + 1 }}</div>
@@ -103,9 +104,11 @@ import {
 } from "@/api/artist.js";
 import { ref, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import { NavBar, Icon, Button, Tab, Tabs, List } from "vant";
 import Card from "@/components/Card.vue";
 const route = useRoute();
+const store = useStore();
 /* 
   artist 歌手相关 数据和方法
 */
@@ -183,14 +186,15 @@ const onLoad = () => {
     limit: limit,
     offset: page * limit
   }).then(res => {
-    // console.log(res);
-    // console.log(page);
+    console.log(res);
     page = page + 1;
     if (res.more === false) {
       finished.value = true;
     }
-    // total = res.total;
-    // console.log(page * limit);
+    // 可恶，居然没有背景图，那我自己加一个好了
+    res.songs.map(
+      item => (item.al.picUrl = require("@/assets/imgs/artist_default.png"))
+    );
     topSongData.songs.push(...res.songs);
     loading.value = false;
   });
@@ -213,6 +217,14 @@ const getTopSongs = async () => {
   }
 };
 getTopSongs();
+
+// play
+const play = i => {
+  // console.log(i);
+  // console.log(topSongData.songs.length);
+  store.commit("setPlaylist", topSongData.songs);
+  store.commit("setPlayCurrentIndex", i);
+};
 </script>
 
 <style lang="less" scoped>

@@ -2,7 +2,15 @@
   <!-- 如果在登录界面，隐藏 -->
   <div class="playController">
     <div class="left" @click="showPopUp">
-      <img :src="playlist[playCurrentIndex].al.picUrl" alt="" />
+      <!-- <img :src="playlist[playCurrentIndex].al.picUrl" alt="" /> -->
+      <!-- :error-icon="require('@/assets/imgs/artist_default.png')" -->
+      <van-image
+        width="0.8rem"
+        height="0.8rem"
+        round
+        class="img"
+        :src="playlist[playCurrentIndex].al.picUrl"
+      />
       <div class="content">
         <div class="title">
           {{ playlist[playCurrentIndex].name }}
@@ -32,20 +40,22 @@
       </svg>
     </div>
     <audio
-      ref="audio"
-      id="playControl_doPlay"
       @timeupdate="updateTime"
       @ended="ended"
       @error="error"
+      @loadedmetadata="loadedmetadata"
       :src="
         `https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`
       "
+      preload="metadata"
+      ref="audio"
+      id="playControl_doPlay"
     ></audio>
     <PlayMusic
-      :show="show"
-      :playDetail="playlist[playCurrentIndex]"
       @closePopUp="closePopUp"
       @updateCurrentTime="updateCurrentTime"
+      :show="show"
+      :playDetail="playlist[playCurrentIndex]"
       :paused="paused"
       :play="play"
     ></PlayMusic>
@@ -82,17 +92,31 @@ export default {
           store.state.playlist[store.state.playCurrentIndex].id
         );
         store.commit("setPaused", false);
-        paused.value = false;
+        // paused.value = false;
       } else {
         audio.value.pause();
-        paused.value = true;
+        // paused.value = true;
         // store.state.playlist[store.state.playCurrentIndex].id;
         store.commit("setPaused", true);
       }
     };
     // 当audio标签出错时，触发
-    const error = () => {
+    const error = e => {
+      // console.log(e);
+      Toast.setDefaultOptions({ className: "inexa" });
       Toast.fail("o(╥﹏╥)o, 版权问题不能播放");
+      store.commit("setPaused", true);
+      setTimeout(() => {
+        store.commit("setPlayCurrentIndex", store.state.playCurrentIndex + 1);
+      }, 1000);
+    };
+
+    // audio元数据获取成功时，触发
+    const loadedmetadata = () => {
+      store.commit("setDuration", audio.value.duration);
+      store.commit("setcurrentTimePrecent", currentTimePercent.value);
+      // console.log((currentTimePercent.value * 100).toFixed(2));
+      store.commit("setCurrentTime", audio.value.currentTime);
     };
     /* 
     展示详情页
@@ -116,9 +140,7 @@ export default {
         (audio.value.currentTime / audio.value.duration) *
         100
       ).toFixed(0);
-      store.commit("setDuration", audio.value.duration);
       store.commit("setcurrentTimePrecent", currentTimePercent.value);
-      // console.log((currentTimePercent.value * 100).toFixed(2));
       store.commit("setCurrentTime", audio.value.currentTime);
     };
     // 播放结束时触发， 将下一首的url填入，调用播放
@@ -147,7 +169,8 @@ export default {
       ended,
       error,
       currentTimePercent,
-      updateCurrentTime
+      updateCurrentTime,
+      loadedmetadata
     };
   }
 };
@@ -164,15 +187,13 @@ export default {
   background-color: #fff;
   .left {
     display: flex;
-    padding: 0 0.4rem;
-    width: 70vw;
-    img {
+    width: 75vw;
+    justify-content: space-around;
+    .img {
       width: 0.8rem;
-      height: 0.8rem;
-      border-radius: 50%;
     }
     .content {
-      padding: 0 0.2rem;
+      justify-self: end;
       .tips {
         font-size: 0.2rem;
         color: gray;
@@ -186,7 +207,8 @@ export default {
     }
   }
   .right {
-    // width: 20vw;
+    // width: 50vw;
+
     .icon {
       width: 0.4rem;
       height: 0.4rem;

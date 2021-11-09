@@ -40,8 +40,6 @@ apiPlayListDetail({ id }).then(result => {
 
 <style lang="less" scoped>
 .root {
-  margin-bottom: 13vh;
-
   .loading {
     width: 100vw;
     height: 100%;

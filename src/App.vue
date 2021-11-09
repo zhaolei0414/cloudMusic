@@ -1,11 +1,13 @@
 <template>
   <div>
     <router-view></router-view>
-
+    <!-- 登录界面不显示底部播放栏 -->
     <div v-show="!/^\/login/i.test($route.path)" class="flexColumn appBottom">
       <PlayController />
       <TabBar :fixed="false" active-color="#d20a0a" />
     </div>
+    <!-- 底部是fixed定位 没有高度 搞个透明的盒子撑开高度 -->
+    <div class="bottomView"></div>
   </div>
 </template>
 
@@ -26,6 +28,9 @@ store.dispatch("checkLogin");
 }
 body {
   background-color: var(--van-background-color);
+}
+a {
+  color: var(--van-gray-8);
 }
 .icon {
   width: 1.5em;
@@ -66,5 +71,8 @@ body {
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
   transform: rotate(-45deg);
+}
+.bottomView {
+  height: 107px;
 }
 </style>

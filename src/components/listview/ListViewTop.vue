@@ -120,7 +120,7 @@ const props = defineProps(["playlist"]);
       position: absolute;
       top: 0;
       right: 10px;
-      color: var(--van-gray-8);
+      // color: var(--van-gray-8);
     }
   }
   .contextRight {
@@ -131,9 +131,9 @@ const props = defineProps(["playlist"]);
     .author {
       display: flex;
       align-items: center;
-      span {
-        color: var(--van-gray-8);
-      }
+      // span {
+      // color: var(--van-gray-8);
+      // }
     }
     img {
       width: 40px;
@@ -149,7 +149,7 @@ const props = defineProps(["playlist"]);
       word-wrap: break-word;
       -webkit-line-clamp: 2; /*限制在一个块元素显示的文本的行数*/
       -webkit-box-orient: vertical; /*设置或检索伸缩盒对象的子元素的排列方式*/
-      color: var(--van-gray-8);
+      // color: var(--van-gray-8);
       font-size: 12px;
       margin-top: 15px;
     }

@@ -2,7 +2,10 @@
   <div>
     <router-view></router-view>
     <!-- 登录界面不显示底部播放栏 -->
-    <div v-show="!/^\/login/i.test($route.path)" class="flexColumn appBottom">
+    <div
+      v-show="!/^\/login/i.test($route.path) && $store.state.isShowAppBottom"
+      class="flexColumn appBottom"
+    >
       <PlayController />
       <TabBar :fixed="false" active-color="#d20a0a" />
     </div>
@@ -47,7 +50,7 @@ a {
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 99999;
+  z-index: 3000;
 }
 // 更多标签页
 .more {

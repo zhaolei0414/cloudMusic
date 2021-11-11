@@ -34,7 +34,7 @@ import BScroll from "@better-scroll/core";
 	 */
 const list = reactive([]);
 // limit: 取出数量 , 默认为 30 (不支持 offset)
-apiPersonalized({ limit: 9 }).then(res => {
+apiPersonalized({ limit: 6 }).then(res => {
   const { result: data } = res;
   list.push(...data);
 });
@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
   overflow: hidden;
 }
 .scroll-content {
-  width: 300vw;
+  width: 200vw;
   display: inline-block;
 }
 .box2 {

@@ -34,7 +34,8 @@ export default createStore({
     },
     // 是否是登录状态？
     isLogin: false,
-
+    // 是否展示App底部的tabbar和播放器
+    isShowAppBottom: true
   },
   getters: {
     // 歌词 数组形式
@@ -91,6 +92,9 @@ export default createStore({
     },
     setPaused(state, value) {
       state.paused = value
+    },
+    setIsShowAppBottom(state, value) {
+      state.isShowAppBottom = value
     },
     /* 
     控制用户信息相关

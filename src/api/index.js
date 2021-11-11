@@ -15,7 +15,6 @@ axios.defaults.timeout = 10000;
 axios.interceptors.request.use(config => {
   // 在发送请求前要做的事儿
   // const cookie = localStorage.getItem('cookie')
-
   // console.log(config);
   return config
 }, err => {

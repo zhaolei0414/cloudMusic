@@ -2,7 +2,7 @@
   <div>
     <div class="flex box1">
       <h3>推荐歌单</h3>
-      <span class="more">更多</span>
+      <span class="more" @click="$router.push('/songListCenter')">更多</span>
     </div>
     <div class="scroll-wrapper" ref="wrapper">
       <div class="scroll-content">

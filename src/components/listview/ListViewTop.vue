@@ -366,7 +366,7 @@ const delComment = (target, e) => {
       position: absolute;
       top: 0;
       right: 10px;
-      // color: var(--van-gray-8);
+      color: #fff;
     }
   }
   .contextRight {
@@ -478,7 +478,7 @@ const delComment = (target, e) => {
   bottom: 0;
   left: 100vw;
   z-index: 3000;
-  transition: all 0.3s;
+  transition: all 0.3s linear;
 }
 .commentInput.active {
   left: 2.34vw;

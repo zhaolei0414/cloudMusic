@@ -21,14 +21,12 @@ export default {
   components: { Icon },
   data() {
     return {
-      history: []
+      history: [],
     };
   },
   created() {
-    const localHistory = localStorage
-      .getItem("history")
-      .split(",")
-      .reverse();
+    if (!localStorage.getItem("history")) return;
+    const localHistory = localStorage.getItem("history").split(",").reverse();
     // 只显示五个
     console.log(localHistory);
     if (localHistory.length >= 5) {
@@ -40,8 +38,8 @@ export default {
     delHistory() {
       localStorage.removeItem("history");
       this.history = "";
-    }
-  }
+    },
+  },
 };
 </script>
 

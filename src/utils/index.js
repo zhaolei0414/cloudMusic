@@ -5,6 +5,17 @@ export default {
     let dd = date.getDate()
     let res = mm + '月' + dd + '日'
     return res
+  },
+  debounce(fn, wait) {
+    let timer = null
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+        timer = null;
+      }
+      timer = setTimeout(() => {
+        fn.apply(this, arguments);
+      }, wait);
+    }
   }
-
 }

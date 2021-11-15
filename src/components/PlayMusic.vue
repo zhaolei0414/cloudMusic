@@ -38,6 +38,7 @@
         :class="{ paused: $store.state.paused }"
       />
     </div>
+    <!-- 歌词滚动部分 -->
     <div v-show="isLyric" @click="isLyric = !isLyric" class="playLyric">
       <ul>
         <li
@@ -53,6 +54,7 @@
         </li>
       </ul>
     </div>
+    <!-- 进度条 -->
     <div class="progress">
       <Slider
         v-model="sliderCurrentTime"
@@ -162,7 +164,11 @@ const onSliderChange = () => {
 watch(
   () => store.state.currentTimePrecent,
   (current, prev) => {
-    // console.log(current);
+    // 刚填入歌曲的时候，播放进度百分比是NaN,需要重置为零
+    if (isNaN(current)) {
+      sliderCurrentTime.value = 0;
+      return;
+    }
     sliderCurrentTime.value = current;
   }
 );

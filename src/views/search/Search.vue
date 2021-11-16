@@ -32,11 +32,12 @@
     </div>
     <!-- 弹出层 当按下enter搜索时显示 -->
     <Popup
-      :show="show"
+      v-model:show="show"
       closeable
       @close="show = false"
       position="right"
-      :style="{ height: '100%', width: '100%' }"
+      :overlay="false"
+      :style="{ height: '100%', width: '100%', zIndex: '998px' }"
       close-icon-position="top-left"
     >
       <Row>
@@ -77,7 +78,6 @@
                 </div>
               </div>
             </li>
-            <li></li>
           </ul>
         </Tab>
         <Tab title="歌单">
@@ -103,7 +103,6 @@
                 </div>
               </li>
             </router-link>
-            <li></li>
           </ul>
         </Tab>
         <Tab title="歌手">
@@ -128,7 +127,6 @@
                 >
               </div>
             </li>
-            <li></li>
           </ul>
         </Tab>
         <Tab title="专辑">
@@ -153,10 +151,11 @@
                 >
               </div>
             </li>
-            <li></li>
           </ul>
         </Tab>
       </Tabs>
+      <!-- 撑开底部播放器 -->
+      <div class="placeholder"></div>
     </Popup>
   </div>
 </template>
@@ -468,5 +467,8 @@ const searchHot = item => {
   height: 40px;
   padding-left: 15px;
   background-color: #fff;
+}
+.placeholder {
+  height: 116px;
 }
 </style>

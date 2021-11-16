@@ -3,19 +3,33 @@
     <!-- 搜索框 -->
     <CellGroup class="cellGroup">
       <Search
+        v-model.trim="userInput"
+        @search="search"
+        @update:model-value="userInputChanged"
         :placeholder="showKeyword"
         class="field"
-        v-model="userInput"
-        @keydown.enter="search"
         shape="round"
       >
       </Search>
       <span @click="$router.go(-1)">取 消</span>
     </CellGroup>
     <!-- 搜索历史 -->
-    <History @searchHistory="searchHot" />
+    <History v-show="!isSearchSuggest" @searchHistory="searchHot" />
     <!-- 热搜 -->
-    <Hot @searchHot="searchHot" />
+    <Hot v-show="!isSearchSuggest" @searchHot="searchHot" />
+    <!-- 搜索建议 -->
+    <div v-show="isSearchSuggest">
+      <ul>
+        <li
+          v-for="(item, i) in searchSuggestData"
+          :key="i"
+          @click="searchSuggest(item.keyword)"
+          class="searchSuggestLi van-hairline--bottom"
+        >
+          {{ item.keyword }}
+        </li>
+      </ul>
+    </div>
     <!-- 弹出层 当按下enter搜索时显示 -->
     <Popup
       :show="show"
@@ -164,7 +178,7 @@ import {
 import { ref, reactive, nextTick } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { getDefault, getSuggest } from "@/api/search.js";
+import { getDefault, getSuggest, getSearchSuggest } from "@/api/search.js";
 import { getLocalTime } from "@/utils/getLocalTime.js";
 import Hot from "./childComponents/Hot.vue";
 import History from "./childComponents/History.vue";
@@ -201,12 +215,41 @@ const search = async () => {
   show.value = true;
   // console.log(data.result.songs);
   recommendSongs.songsList = data.result.songs;
-  // 强制跳到第一个标签页 不然会出bug的 ^_^
   active.value = 0;
   // 重新搜索后需要重新加载数据后在显示
   loadingOne.value = true;
   loadingTwo.value = true;
   loadingThree.value = true;
+};
+// 搜索建议
+let timer = null;
+const searchSuggestData = reactive([]);
+const isSearchSuggest = ref(false);
+const userInputChanged = () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    const input = userInput.value;
+    if (input) {
+      isSearchSuggest.value = true;
+      getSearchSuggest({
+        keywords: input,
+        type: "mobile"
+      }).then(res => {
+        // console.log(res);
+        searchSuggestData.splice(0, searchSuggestData.length);
+        if (res.result.allMatch) {
+          searchSuggestData.push(...res.result.allMatch);
+        }
+      });
+    } else {
+      isSearchSuggest.value = false;
+    }
+    timer = null;
+  }, 500);
+};
+const searchSuggest = keyword => {
+  userInput.value = keyword;
+  search();
 };
 
 /* 
@@ -420,5 +463,10 @@ const searchHot = item => {
       text-decoration: none;
     }
   }
+}
+.searchSuggestLi {
+  height: 40px;
+  padding-left: 15px;
+  background-color: #fff;
 }
 </style>

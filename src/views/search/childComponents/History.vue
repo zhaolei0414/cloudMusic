@@ -1,5 +1,5 @@
 <template>
-  <div v-if="history">
+  <div v-if="history.length">
     <h4>搜索历史:</h4>
     <div class="history">
       <span
@@ -21,14 +21,17 @@ export default {
   components: { Icon },
   data() {
     return {
-      history: [],
+      history: []
     };
   },
   created() {
     if (!localStorage.getItem("history")) return;
-    const localHistory = localStorage.getItem("history").split(",").reverse();
+    const localHistory = localStorage
+      .getItem("history")
+      .split(",")
+      .reverse();
     // 只显示五个
-    console.log(localHistory);
+    // console.log(localHistory);
     if (localHistory.length >= 5) {
       localHistory.splice(5, localHistory.length);
     }
@@ -38,8 +41,8 @@ export default {
     delHistory() {
       localStorage.removeItem("history");
       this.history = "";
-    },
-  },
+    }
+  }
 };
 </script>
 

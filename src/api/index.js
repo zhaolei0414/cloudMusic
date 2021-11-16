@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // 环境的切换
 if (process.env.NODE_ENV == 'development') {
-  // axios.defaults.baseURL = 'http://localhost:3000';
-  axios.defaults.baseURL = 'http://39.104.13.146:3000/';
+  axios.defaults.baseURL = 'http://localhost:3000';
+  // axios.defaults.baseURL = 'http://39.104.13.146:3000/';
 } else if (process.env.NODE_ENV == 'debug') {
   axios.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {
@@ -41,7 +41,8 @@ export function get(url, params) {
   const obj = Object.assign(obj1, params)
   return new Promise((resolve, reject) => {
     axios.get(url, {
-      params: obj
+      params: obj,
+      withCredentials: true, //关键
     })
       .then(res => {
         resolve(res.data);

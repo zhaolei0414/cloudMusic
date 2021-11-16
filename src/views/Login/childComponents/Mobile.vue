@@ -101,6 +101,7 @@ const checkTel = async () => {
   left: 0;
   top: 0;
   height: 100vh;
+  background-color: #fff;
 }
 .mobileLoginMain {
   margin-left: 15px;

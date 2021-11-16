@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="email">
     <NavBar
       title="网易邮箱登录"
       left-arrow
@@ -87,6 +87,9 @@ const sendLoginInfo = async () => {
 </script>
 
 <style scoped>
+.email {
+  background-color: #fff;
+}
 .field {
   margin-bottom: 10px;
 }

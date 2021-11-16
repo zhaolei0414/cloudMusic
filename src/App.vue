@@ -50,7 +50,7 @@ a {
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 3000;
+  z-index: 2000;
 }
 // 更多标签页
 .more {

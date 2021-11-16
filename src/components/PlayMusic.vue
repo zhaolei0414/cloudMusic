@@ -63,9 +63,17 @@
       />
     </div>
     <div class="playFooter">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-danxunhuan"></use>
-      </svg>
+      <div @click="changePlayMode">
+        <svg v-show="playMode === 0" class="icon" aria-hidden="true">
+          <use xlink:href="#icon-liebiaoxunhuan"></use>
+        </svg>
+        <svg v-show="playMode === 1" class="icon" aria-hidden="true">
+          <use xlink:href="#icon-danquxunhuan"></use>
+        </svg>
+        <svg v-show="playMode === 2" class="icon" aria-hidden="true">
+          <use xlink:href="#icon-suijibofang-copy"></use>
+        </svg>
+      </div>
       <svg class="icon" aria-hidden="true" @click="goPlay(-1)">
         <use xlink:href="#icon-48shangyishou"></use>
       </svg>
@@ -96,7 +104,7 @@
 </template>
 
 <script setup>
-import { Popup, Slider } from "vant";
+import { Popup, Slider, Toast } from "vant";
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import { mapState, useStore } from "vuex";
 const props = defineProps({
@@ -106,7 +114,7 @@ const props = defineProps({
   play: Function
 });
 const isLyric = ref(false);
-const emit = defineEmits(["closePopUp", "updateCurrentTime"]);
+const emit = defineEmits(["closePopUp", "updateCurrentTime", "playMode"]);
 const beforeClose = function() {
   emit("closePopUp");
 };
@@ -129,6 +137,34 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(timer);
 });
+/* 
+  单曲循环，列表循环，随机播放
+*/
+/**
+ * type playMode{
+ *  0:'列表循环',
+ *  1:'单曲循环',
+ *  2:'随机播放'
+ * }
+ */
+Toast.setDefaultOptions({
+  position: "bottom"
+});
+const playMode = ref(0);
+const changePlayMode = () => {
+  playMode.value += 1;
+  if (playMode.value > 2) {
+    playMode.value = 0;
+  }
+  if (playMode.value === 0) {
+    Toast("列表循环");
+  } else if (playMode.value === 1) {
+    Toast("单曲循环");
+  } else {
+    Toast("随机播放");
+  }
+  emit("playMode", playMode.value);
+};
 /* 
   上一首，下一首
 */

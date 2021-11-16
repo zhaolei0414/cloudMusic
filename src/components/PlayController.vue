@@ -54,6 +54,7 @@
     <PlayMusic
       @closePopUp="closePopUp"
       @updateCurrentTime="updateCurrentTime"
+      @playMode="playMode"
       :show="show"
       :playDetail="playlist[playCurrentIndex]"
       :paused="paused"
@@ -143,17 +144,40 @@ export default {
       store.commit("setcurrentTimePrecent", currentTimePercent.value);
       store.commit("setCurrentTime", audio.value.currentTime);
     };
-    // 播放结束时触发， 将下一首的url填入，调用播放
+    const mode = ref(0);
+    const playMode = num => {
+      mode.value = num;
+    };
+
+    // 播放结束时触发
     const ended = () => {
-      // console.log("ended");
-      store.commit("setPaused", true);
-      let current = store.state.playCurrentIndex;
-      // console.log(current);
-      current += 1;
-      store.commit("setPlayCurrentIndex", current);
-      nextTick(() => {
+      // 列表循环
+      if (mode.value === 0) {
+        // console.log("ended");
+        store.commit("setPaused", true);
+        let current = store.state.playCurrentIndex;
+        // console.log(current);
+        current += 1;
+        store.commit("setPlayCurrentIndex", current);
+        nextTick(() => {
+          play();
+        });
+      } else if (mode.value === 1) {
+        // 单曲循环
+        store.commit("setPaused", true);
         play();
-      });
+      } else {
+        // 随机播放
+        store.commit("setPaused", true);
+        // 歌单数组的长度length
+        const length = store.state.playlist.length;
+        // 返回 0 - length-1 的随机整数
+        const random = Math.floor(Math.random() * (length - 1));
+        store.commit("setPlayCurrentIndex", random);
+        nextTick(() => {
+          play();
+        });
+      }
     };
     const updateCurrentTime = time => {
       audio.value.currentTime = time;
@@ -170,7 +194,9 @@ export default {
       error,
       currentTimePercent,
       updateCurrentTime,
-      loadedmetadata
+      loadedmetadata,
+      playMode,
+      mode
     };
   }
 };

@@ -3,8 +3,22 @@
   <van-tabbar v-model="active">
     <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
     <van-tabbar-item replace to="/user" icon="user-o">我的</van-tabbar-item>
-    <van-tabbar-item replace icon="friends-o">关注</van-tabbar-item>
-    <van-tabbar-item replace icon="setting-o">标签</van-tabbar-item>
+    <van-tabbar-item replace to="/dj">
+      <template #icon>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-diantai"></use>
+        </svg>
+      </template>
+      电台
+    </van-tabbar-item>
+    <van-tabbar-item replace to="/mv">
+      <template #icon>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-mv"></use>
+        </svg>
+      </template>
+      MV</van-tabbar-item
+    >
   </van-tabbar>
 </template>
 
@@ -14,5 +28,9 @@ import { ref } from "vue";
 const active = ref(0);
 </script>
 
-<style>
+<style scoped>
+.icon {
+  width: 22px;
+  height: 22px;
+}
 </style>

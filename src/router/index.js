@@ -9,11 +9,31 @@ const routes = [
     component: Home,
   },
   {
+    // 我的
     path: '/user',
     name: 'User',
     component: User,
   },
   {
+    // dj
+    path: '/dj',
+    name: 'DJ',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "ListView" */ '@/views/TabBarView/DJ/DJ.vue')
+  },
+  {
+    // mv
+    path: '/mv',
+    name: 'MV',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "ListView" */ '@/views/TabBarView/MV/MV.vue')
+  },
+  {
+    // 登录
     path: '/login',
     name: 'Login',
     // route level code-splitting
@@ -56,6 +76,7 @@ const routes = [
     ]
   },
   {
+    // 歌单
     path: '/listview',
     name: 'ListView',
     // route level code-splitting
@@ -64,11 +85,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "ListView" */ '../views/ListView.vue')
   },
   {
+    // 搜索页面
     path: '/search',
     name: 'Search',
     component: () => import('../views/search/Search.vue')
   },
   {
+    // 专辑
     path: '/album',
     name: 'Album',
     // route level code-splitting
@@ -77,6 +100,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "ListView" */ '../views/albums/Albums.vue')
   },
   {
+    // 歌手页面
     path: '/artist',
     name: 'Artist',
     // route level code-splitting
@@ -85,6 +109,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "ListView" */ '../views/artist/Artist.vue')
   },
   {
+    // 歌单广场
     path: '/songListCenter',
     name: 'SongListCenter',
     // route level code-splitting

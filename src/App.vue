@@ -1,16 +1,25 @@
 <template>
   <div>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component"  v-if="$route.meta.keepAlive"/>
+    </keep-alive>
+    <component :is="Component"  v-if="!$route.meta.keepAlive"/>
+  </router-view> 
     <!-- 登录界面不显示底部播放栏 -->
     <div
-      v-show="!/^\/login/i.test($route.path) && $store.state.isShowAppBottom"
+      v-show="
+        !/^\/login|^\/mvview/i.test($route.path) && $store.state.isShowAppBottom
+      "
       class="flexColumn appBottom"
     >
-      <PlayController />
-      <TabBar :fixed="false" active-color="#d20a0a" />
+      <div class="tabbar">
+        <PlayController />
+        <TabBar :fixed="false" active-color="#d20a0a" />
+      </div>
     </div>
     <!-- 底部是fixed定位 没有高度 搞个透明的盒子撑开高度 -->
-    <div class="bottomView"></div>
+    <div :class="{ bottomView: !/^\/mvview/i.test($route.path) }"></div>
   </div>
 </template>
 
@@ -46,6 +55,7 @@ a {
   display: flex;
   flex-direction: column;
 }
+
 .appBottom {
   position: fixed;
   left: 0;
@@ -80,5 +90,8 @@ a {
 }
 .inexa {
   z-index: 999999 !important;
+}
+.tabbar {
+  width: 100vw;
 }
 </style>

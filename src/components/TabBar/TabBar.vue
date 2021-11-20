@@ -30,7 +30,7 @@ const active = ref(0);
 
 <style scoped>
 .icon {
-  width: 22px;
-  height: 22px;
+  /* width: 5vw; */
+  height: 2.5vh;
 }
 </style>

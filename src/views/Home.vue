@@ -6,7 +6,7 @@
       </template>
       <template #right>
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-sousuo"></use>
+          <use xlink:href="#icon-sousuo" />
         </svg>
       </template>
     </TopNav>
@@ -20,7 +20,8 @@
         <!-- 排行榜 -->
         <TopList />
         <!-- 为你推荐 -->
-        <HomeLists />
+        <HomeLists @refresh="refresh" />
+        <div class="height"></div>
       </div>
     </div>
 
@@ -69,7 +70,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
   bs.destroy();
 });
-
+function refresh() {
+  bs.refresh();
+}
 /* 
 bscroll ended
 */
@@ -100,7 +103,7 @@ const router = useRouter();
 const routerLinkTO = () => {
   router.push("/search");
 };
-</script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </script>
 
 <style lang="less" scoped>
 .scroll-wrapper {
@@ -110,11 +113,14 @@ const routerLinkTO = () => {
   overflow: hidden;
 }
 .scroll-content {
-  height: 160vh;
+  // height: 155vh;
   display: inline-block;
 }
 .swiper {
   margin-top: 15px;
   // border-radius: 15px;
+}
+.height {
+  height: 10vh;
 }
 </style>

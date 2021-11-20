@@ -27,6 +27,9 @@ const routes = [
     // mv
     path: '/mv',
     name: 'MV',
+    meta: {
+      keepAlive: true
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -116,6 +119,15 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "ListView" */ '../views/SongListCenter/SongListCenter.vue')
+  },
+  {
+    // 视频
+    path: '/mvview',
+    name: 'MVView',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "ListView" */ '../views/MV/MV.vue')
   },
 ]
 

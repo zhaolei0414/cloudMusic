@@ -1,6 +1,6 @@
 <template>
   <!-- 如果在登录界面，隐藏 -->
-  <div class="playController">
+  <div  class="playController">
     <div class="left" @click="showPopUp">
       <!-- <img :src="playlist[playCurrentIndex].al.picUrl" alt="" /> -->
       <!-- :error-icon="require('@/assets/imgs/artist_default.png')" -->

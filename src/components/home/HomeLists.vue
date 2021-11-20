@@ -35,6 +35,7 @@
                 width="40"
                 height="40"
                 radius="10"
+                @load="$emit('refresh')"
               />
             </div>
             <div class="right van-ellipsis">{{ item.name }}</div>

@@ -7,14 +7,7 @@
       fixed
       placeholder
     />
-    <Tabs
-      v-model:active="active"
-      @click-tab="onClickTab"
-      animated
-      swipeable
-      sticky
-      offset-top="46px"
-    >
+    <Tabs v-model:active="active" animated swipeable sticky offset-top="46px">
       <Tab title="推荐">
         <div class="tabview">
           <Loading v-show="data.isLoading" vertical />
@@ -271,17 +264,10 @@ apiPersonalized().then(res => {
     data.isLoading = false;
   });
 });
-const onClickTab = title => {
-  // 排行榜
-  if (title.name === 1) {
-    getTopList().then(res => {
-      // console.log(res.list);
-      data.toplist = res.list;
-    });
-    // 精品
-  } else if (title.name === 2) {
-  }
-};
+getTopList().then(res => {
+  // console.log(res.list);
+  data.toplist = res.list;
+});
 
 // 精品歌单下拉加载
 const topSonglistLoading = ref(false);

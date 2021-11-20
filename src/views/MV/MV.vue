@@ -6,7 +6,17 @@
       <SwipeItem v-for="(item,i) in data.detail" :key="item.id" style="height: 100vh">
         <main @scroll="scroll">
           <!-- 视频播放器 -->
-          <video :src="data.url[i]" style="width:100%" x5-video-player-type="h5" controls />
+          <!-- playsinline 阻止苹果浏览器播放自动全屏 -->
+          <video
+            :src="data.url[i]"
+            style="width:100%"
+            x5-video-player-type="h5"
+            webkit-playsinline="true"
+            playsinline="true"
+            preload="auto"
+            :poster="data.detail[i].cover"
+            controls
+          />
           <!-- 右侧按钮 -->
           <div v-if="isInfoComputed" class="sliderBar">
             <!-- 点赞 -->

@@ -1,11 +1,11 @@
 <template>
   <div>
     <router-view v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component"  v-if="$route.meta.keepAlive"/>
-    </keep-alive>
-    <component :is="Component"  v-if="!$route.meta.keepAlive"/>
-  </router-view> 
+      <keep-alive>
+        <component :is="Component" v-if="$route.meta.keepAlive" />
+      </keep-alive>
+      <component :is="Component" v-if="!$route.meta.keepAlive" />
+    </router-view>
     <!-- 登录界面不显示底部播放栏 -->
     <div
       v-show="

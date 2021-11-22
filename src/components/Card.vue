@@ -9,7 +9,7 @@
 export default {
   props: {
     width: {
-      type: "string"
+      type: "string",
     }
   }
 };

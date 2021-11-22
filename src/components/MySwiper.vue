@@ -37,9 +37,9 @@ function touchend(url) {
   }
 }
 
-const goUrl = function(url) {
+const goUrl = function (url) {
   if (!url) return;
-  if (url.search("http") === -1) return;
+  // if (url.search("http") === -1) return;
   window.location.href = url;
 };
 </script>

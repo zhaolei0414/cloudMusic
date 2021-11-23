@@ -1,6 +1,7 @@
 <template>
   <!-- topnav -->
   <nav class="listViewTopNav">
+    <van-image :src="data.detail.coverUrl" class="backgroundImg" height="0.8rem" />
     <div class="left">
       <div @click="$router.go(-1)">
         <svg class="icon" aria-hidden="true">
@@ -31,14 +32,36 @@
         <div class="description van-multi-ellipsis--l3">{{ data.detail.description }}</div>
       </div>
     </div>
+    <!-- 点赞，评论，收藏 -->
+    <div class="utils">
+      <span>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-dianzan_kuai" />
+        </svg>
+      </span>
+      <span>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-pinglun1" />
+        </svg>
+      </span>
+      <span>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-zhuanfa" />
+        </svg>
+      </span>
+    </div>
     <!-- 下拉刷新list -->
+
     <List v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
       <CellGroup>
-        <Cell v-for="(item, index) in data.programs" :key="item.id">
+        <Cell v-for="(item, index) in data.programs" :key="item.id" @click="onCellClick(index)">
           <template #icon>
             <van-image :src="item.coverUrl" width="15vw" height="15vw" radius="2vw" />
           </template>
-          <template #value>{{ item.name }}</template>
+          <template #value class="right">
+            <div class="title">{{ item.name }}</div>
+            <div class="description van-multi-ellipsis--l2">{{ item.description }}</div>
+          </template>
         </Cell>
       </CellGroup>
     </List>
@@ -50,7 +73,9 @@ import { getDJProgram, getDJDetail } from '@/api/dj.js'
 import { Loading, List, Cell, CellGroup } from 'vant';
 import { useRoute } from 'vue-router';
 import { reactive, ref, nextTick } from 'vue'
+import { useStore } from 'vuex'
 const route = useRoute()
+const store = useStore()
 const id = route.query.id
 const isLoading = ref(true)
 const data = reactive({
@@ -72,6 +97,8 @@ const data = reactive({
 getDJDetail(id)
   .then(res => {
     console.log(res);
+
+
     data.detail = res.program
     nextTick(() => isLoading.value = false)
   })
@@ -107,6 +134,12 @@ const finished = ref(false);
 const onLoad = () => {
   getData().then(res => {
     console.log(res);
+    res.programs.forEach(item => {
+      item.al = {}
+      item.al.picUrl = item.coverUrl
+      item.al.name = item.radio.name
+      item.al.id = item.radio.id
+    });
     if (res.more === false) {
       finished.value = true
     } else {
@@ -114,6 +147,10 @@ const onLoad = () => {
     }
 
   })
+}
+// cell 点击事件
+const onCellClick = (index) => {
+  store.commit("setPlaylist", data.programs)
 }
 </script>
 
@@ -150,7 +187,7 @@ const onLoad = () => {
   left: 0;
   width: 100vw;
   height: 30vh;
-  filter: blur(40px);
+  filter: blur(30px);
   z-index: -1;
 }
 .detail {
@@ -176,5 +213,22 @@ const onLoad = () => {
       font-size: 14px;
     }
   }
+}
+.utils {
+  width: 40vw;
+  height: 5vh;
+  margin: 15px auto;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  margin-left: 15px;
+  font-weight: 700;
+  font-size: 16px;
+}
+.description {
+  margin-left: 15px;
+  font-size: 12px;
 }
 </style>

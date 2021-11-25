@@ -1,64 +1,62 @@
 <template>
   <div class="listViewTop">
     <!-- 背景图片 -->
-    <img :src="playlist.coverImgUrl" alt="" />
+    <img :src="playlist.coverImgUrl" alt />
     <nav class="listViewTopNav">
       <div class="left">
         <div @click="$router.go(-1)">
           <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-zuojiantou"></use>
+            <use xlink:href="#icon-zuojiantou" />
           </svg>
         </div>
         <div class="title">歌单</div>
       </div>
       <div class="right">
         <svg class="icon" aria-hidden="true" @click="$router.push('/search')">
-          <use xlink:href="#icon-sousuo"></use>
+          <use xlink:href="#icon-sousuo" />
         </svg>
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-danlieliebiao"></use>
+          <use xlink:href="#icon-danlieliebiao" />
         </svg>
       </div>
     </nav>
     <div class="context">
       <div class="contextLeft">
-        <img :src="playlist.coverImgUrl" alt="" />
+        <img :src="playlist.coverImgUrl" alt />
         <span>{{ changeValue(playlist.playCount) }}</span>
       </div>
       <div class="contextRight">
         <h3>{{ playlist.name }}</h3>
         <div class="author">
-          <img :src="playlist.creator.avatarUrl" alt="" />
+          <img :src="playlist.creator.avatarUrl" alt />
           <span>{{ playlist.creator.nickname }}</span>
         </div>
-        <div class="description">
-          {{ playlist.description }}
-        </div>
+        <div class="description">{{ playlist.description }}</div>
       </div>
     </div>
     <div class="iconList">
       <!-- 歌单评论 -->
       <div @click="showCommentPlaylist">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xinxi"></use>
+          <use xlink:href="#icon-xinxi" />
         </svg>
         <span>{{ playlist.commentCount }}</span>
       </div>
       <div>
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-fenxiang1"></use>
+          <use xlink:href="#icon-fenxiang1" />
         </svg>
         <span>{{ playlist.shareCount }}</span>
       </div>
-      <div>
+      <div @click="doDownLoad">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xiazai"></use>
+          <use xlink:href="#icon-xiazai" />
         </svg>
         <span>下载</span>
       </div>
       <div>
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-duoxuan"></use>
+          <use xlink:href="#icon-duoxuan" />
         </svg>
         <span>多选</span>
       </div>
@@ -72,17 +70,8 @@
         backgroundColor: 'var(--van-background-color)'
       }"
     >
-      <NavBar
-        title="评论"
-        left-arrow
-        @click-left="isShowCommentPlaylist = false"
-      />
-      <List
-        v-model:loading="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-      >
+      <NavBar title="评论" left-arrow @click-left="isShowCommentPlaylist = false" />
+      <List v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
         <div class="card">
           <h4>评论区</h4>
           <ul ref="commentUlRef">
@@ -97,12 +86,7 @@
               <div class="content">
                 <div class="top">
                   <div class="left">
-                    <van-image
-                      :src="item.user.avatarUrl"
-                      round
-                      width="40"
-                      height="40"
-                    />
+                    <van-image :src="item.user.avatarUrl" round width="40" height="40" />
                     <div class="nicknameAndTime">
                       <div>{{ item.user.nickname }}</div>
                       <div>{{ utils.getMonthDay(item.time) }}</div>
@@ -143,7 +127,6 @@
 <script setup>
 import { changeValue } from "@/utils/changeValue.js";
 import { getCommentNew, postCommentLike, postComment } from "@/api/playList.js";
-import utils from "@/utils/index.js";
 import {
   Popup,
   NavBar,
@@ -158,6 +141,7 @@ import {
 import { ref, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import utils from '@/utils/index.js'
 const props = defineProps(["playlist"]);
 const route = useRoute();
 const store = useStore();
@@ -208,6 +192,19 @@ const getSongListComment = async () => {
     finished.value = true;
   }
 };
+/* 
+  下载功能
+*/
+const doDownLoad = () => {
+  // console.log(utils.downLoad);
+  const audio = document.getElementById('playControl_doPlay')
+  const downUrl = audio.src
+  const fileName = store.state.playlist[store.state.playCurrentIndex].name
+
+  // utils.downLoad(downUrl, fileName)
+
+}
+
 /* 点赞功能
 t 是否点赞   1：点赞 0：取消点赞
 点完赞后变色 */
@@ -315,6 +312,7 @@ const delComment = (target, e) => {
       isShowCommentField.value = true;
     });
 };
+
 </script>
 
 <style lang="less" scoped>

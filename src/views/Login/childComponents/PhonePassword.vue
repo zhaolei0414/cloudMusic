@@ -1,11 +1,6 @@
 <template>
   <div>
-    <NavBar
-      title="手机号登录"
-      left-arrow
-      @click-left="$router.go(-1)"
-      :border="false"
-    />
+    <NavBar title="手机号登录" left-arrow @click-left="$router.go(-1)" :border="false" />
     <CellGroup inset>
       <!-- 输入手机号，调起手机号键盘 -->
       <Field
@@ -30,14 +25,7 @@
         :style="{ borderBottom: '1px solid var(--van-border-color)' }"
         class="field"
       />
-      <Button
-        round
-        type="primary"
-        size="large"
-        color="#D87093"
-        @click="checkTel"
-        >登录</Button
-      >
+      <Button round type="primary" size="large" color="#D87093" @click="checkTel">登录</Button>
     </CellGroup>
   </div>
 </template>
@@ -46,7 +34,7 @@
 import { NavBar, Field, CellGroup, Button, Toast } from "vant";
 import { postLoginInfo } from "@/api/login.js";
 import { ref } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
 const tel = ref("");
 const password = ref("");
 const checkTel = () => {
@@ -75,6 +63,7 @@ const sendLoginInfo = async () => {
       password.value = "";
     }
   } catch (error) {
+    console.log(error);
     Toast.fail("账户不存在");
     // 可跳转到注册页
   }

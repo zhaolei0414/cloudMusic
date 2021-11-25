@@ -17,11 +17,11 @@ export default {
 
 <style scoped>
 .my-card {
-  width: 90vw;
+  width: 95vw;
   margin: 15px auto 0;
   padding: 10px;
   background-color: #fff;
-  border-radius: 8vw;
+  border-radius: 5vw;
   color: var(--van-gray-8);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <!-- 如果在登录界面，隐藏 -->
-  <div  class="playController">
+  <div class="playController">
     <div class="left" @click="showPopUp">
       <!-- <img :src="playlist[playCurrentIndex].al.picUrl" alt="" /> -->
       <!-- :error-icon="require('@/assets/imgs/artist_default.png')" -->
@@ -12,31 +12,19 @@
         :src="playlist[playCurrentIndex].al.picUrl"
       />
       <div class="content">
-        <div class="title">
-          {{ playlist[playCurrentIndex].name }}
-        </div>
+        <div class="title">{{ playlist[playCurrentIndex].name }}</div>
         <div class="tips">点击显示详情</div>
       </div>
     </div>
     <div class="right">
-      <svg
-        v-show="$store.state.paused"
-        class="icon"
-        aria-hidden="true"
-        @click="play"
-      >
-        <use xlink:href="#icon-bofang"></use>
+      <svg v-show="$store.state.paused" class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-bofang" />
       </svg>
-      <svg
-        v-show="!$store.state.paused"
-        class="icon"
-        aria-hidden="true"
-        @click="play"
-      >
-        <use xlink:href="#icon-zanting"></use>
+      <svg v-show="!$store.state.paused" class="icon" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-zanting" />
       </svg>
       <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-24gl-playlistMusic"></use>
+        <use xlink:href="#icon-24gl-playlistMusic" />
       </svg>
     </div>
     <audio
@@ -85,7 +73,7 @@ export default {
     const store = useStore();
     const paused = ref(true);
     const audio = ref(null);
-    const play = function() {
+    const play = function () {
       if (audio.value.paused) {
         audio.value.play();
         store.dispatch(
@@ -105,7 +93,7 @@ export default {
     const error = e => {
       // console.log(e);
       Toast.setDefaultOptions({ className: "inexa" });
-      Toast.fail("o(╥﹏╥)o, 版权问题不能播放");
+      Toast.fail("o(╥﹏╥)o, 需要黑胶会员或者没有版权");
       store.commit("setPaused", true);
       setTimeout(() => {
         store.commit("setPlayCurrentIndex", store.state.playCurrentIndex + 1);
@@ -123,10 +111,10 @@ export default {
     展示详情页
     */
     const show = ref(false);
-    const showPopUp = function() {
+    const showPopUp = function () {
       show.value = true;
     };
-    const closePopUp = function() {
+    const closePopUp = function () {
       show.value = false;
     };
     /* 
@@ -135,7 +123,7 @@ export default {
     // 播放进度百分比
     let currentTimePercent = ref(0);
     //  audio标签提供的api 当播放时触发钩子
-    const updateTime = function() {
+    const updateTime = function () {
       // console.log(audio.value.currentTime, audio.value.duration);
       currentTimePercent.value = +(
         (audio.value.currentTime / audio.value.duration) *

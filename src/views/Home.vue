@@ -5,9 +5,11 @@
         <top-input @click="routerLinkTO"></top-input>
       </template>
       <template #right>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-sousuo" />
-        </svg>
+        <a href="https://github.com/zhaolei0414/cloudMusic">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-github" />
+          </svg>
+        </a>
       </template>
     </TopNav>
 
@@ -103,7 +105,7 @@ const router = useRouter();
 const routerLinkTO = () => {
   router.push("/search");
 };
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </script>
+</script>
 
 <style lang="less" scoped>
 .scroll-wrapper {

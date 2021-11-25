@@ -9,17 +9,14 @@
     close-icon-position="top-left"
     close-icon="arrow-down"
   >
-    <div
-      class="bg"
-      :style="{ backgroundImage: `url(${playDetail.al.picUrl})` }"
-    ></div>
+    <div class="bg" :style="{ backgroundImage: `url(${playDetail.al.picUrl})` }"></div>
     <div class="playTop">
       <div class="title">
         <p>{{ playDetail.name }}</p>
       </div>
       <div class="share">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-fenxiang"></use>
+          <use xlink:href="#icon-fenxiang" />
         </svg>
       </div>
     </div>
@@ -28,12 +25,12 @@
         class="needle"
         :class="{ active: !$store.state.paused }"
         src="@/assets/imgs/needle-ab.png"
-        alt=""
+        alt
       />
       <img src="@/assets/imgs/disc-circle.png" />
       <img
         :src="playDetail.al.picUrl"
-        alt=""
+        alt
         class="rotateImg"
         :class="{ paused: $store.state.paused }"
       />
@@ -49,64 +46,66 @@
               item.time <= $store.state.currentTime &&
               item.pre > $store.state.currentTime
           }"
-        >
-          {{ item.lyric }}
-        </li>
+        >{{ item.lyric }}</li>
       </ul>
     </div>
     <!-- 进度条 -->
     <div class="progress">
-      <Slider
-        v-model="sliderCurrentTime"
-        @change="onSliderChange"
-        button-size="18px"
-      />
+      <Slider v-model="sliderCurrentTime" @change="onSliderChange" button-size="18px" />
     </div>
     <div class="playFooter">
       <div @click="changePlayMode">
         <svg v-show="playMode === 0" class="icon" aria-hidden="true">
-          <use xlink:href="#icon-liebiaoxunhuan"></use>
+          <use xlink:href="#icon-liebiaoxunhuan" />
         </svg>
         <svg v-show="playMode === 1" class="icon" aria-hidden="true">
-          <use xlink:href="#icon-danquxunhuan"></use>
+          <use xlink:href="#icon-danquxunhuan" />
         </svg>
         <svg v-show="playMode === 2" class="icon" aria-hidden="true">
-          <use xlink:href="#icon-suijibofang-copy"></use>
+          <use xlink:href="#icon-suijibofang-copy" />
         </svg>
       </div>
       <svg class="icon" aria-hidden="true" @click="goPlay(-1)">
-        <use xlink:href="#icon-48shangyishou"></use>
+        <use xlink:href="#icon-48shangyishou" />
       </svg>
-      <svg
-        v-show="$store.state.paused"
-        class="icon play"
-        aria-hidden="true"
-        @click="play"
-      >
-        <use xlink:href="#icon-bofang1-copy"></use>
+      <svg v-show="$store.state.paused" class="icon play" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-bofang1-copy" />
       </svg>
-      <svg
-        v-show="!$store.state.paused"
-        class="icon play"
-        aria-hidden="true"
-        @click="play"
-      >
-        <use xlink:href="#icon-zanting"></use>
+      <svg v-show="!$store.state.paused" class="icon play" aria-hidden="true" @click="play">
+        <use xlink:href="#icon-zanting" />
       </svg>
       <svg class="icon" aria-hidden="true" @click="goPlay(1)">
-        <use xlink:href="#icon-048caozuo_xiayishou"></use>
+        <use xlink:href="#icon-048caozuo_xiayishou" />
       </svg>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-danlieliebiao"></use>
+      <svg class="icon" aria-hidden="true" @click="showPopUp">
+        <use xlink:href="#icon-danlieliebiao" />
       </svg>
     </div>
+  </Popup>
+  <Popup
+    v-model:show="isShow"
+    position="right"
+    :overlay-style="{ backgroundColor: 'transparent' }"
+    :style="{ height: '10%', width: '30%', top: '86%', borderRadius: '15px' }"
+  >
+    <ul class="popup">
+      <li @click="likeThisMusic" class="van-hairline--bottom">
+        <Icon name="like-o" />
+        <span>喜欢</span>
+      </li>
+      <li class="van-hairline--bottom">
+        <Icon name="chat-o" />
+        <span>评论</span>
+      </li>
+    </ul>
   </Popup>
 </template>
 
 <script setup>
-import { Popup, Slider, Toast } from "vant";
+import { Popup, Slider, Toast, Icon } from "vant";
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import { mapState, useStore } from "vuex";
+import { getLiked } from '@/api/playList.js'
 const props = defineProps({
   show: Boolean,
   playDetail: Object,
@@ -115,7 +114,7 @@ const props = defineProps({
 });
 const isLyric = ref(false);
 const emit = defineEmits(["closePopUp", "updateCurrentTime", "playMode"]);
-const beforeClose = function() {
+const beforeClose = function () {
   emit("closePopUp");
 };
 /* 
@@ -147,9 +146,7 @@ onUnmounted(() => {
  *  2:'随机播放'
  * }
  */
-Toast.setDefaultOptions({
-  position: "bottom"
-});
+
 const playMode = ref(0);
 const changePlayMode = () => {
   playMode.value += 1;
@@ -157,10 +154,19 @@ const changePlayMode = () => {
     playMode.value = 0;
   }
   if (playMode.value === 0) {
+    Toast.setDefaultOptions({
+      position: "bottom"
+    });
     Toast("列表循环");
   } else if (playMode.value === 1) {
+    Toast.setDefaultOptions({
+      position: "bottom"
+    });
     Toast("单曲循环");
   } else {
+    Toast.setDefaultOptions({
+      position: "bottom"
+    });
     Toast("随机播放");
   }
   emit("playMode", playMode.value);
@@ -169,7 +175,7 @@ const changePlayMode = () => {
   上一首，下一首
 */
 let store = useStore();
-const goPlay = function(num) {
+const goPlay = function (num) {
   // 点击上一首，下一首时，将进度条归零
   sliderCurrentTime.value = 0;
   let currentNum = store.state.playCurrentIndex + num;
@@ -208,6 +214,18 @@ watch(
     sliderCurrentTime.value = current;
   }
 );
+// 点击展示popup 可选 喜欢该音乐，展开 歌曲评论
+const isShow = ref(false)
+const showPopUp = () => {
+  isShow.value = true
+}
+const likeThisMusic = async () => {
+  const id = store.state.playlist[store.state.playCurrentIndex].id
+  const res = await getLiked({ id })
+  if (res.code === 200) {
+    Toast.success('已添加到我喜欢的歌单')
+  }
+}
 </script>
 
 
@@ -331,5 +349,15 @@ watch(
   width: 100vw;
   bottom: 60px;
   left: 0;
+}
+.popup {
+  li {
+    height: 10vw;
+    text-align: center;
+    line-height: 10vw;
+    span {
+      margin-left: 10px;
+    }
+  }
 }
 </style>

@@ -1,128 +1,69 @@
 <template>
-  <div>
-    <div v-if="!data.isLogin">
-      <TopNav>
-        <template #right>
-          <svg
-            @click="
-              $router.push({
-                name: 'Search'
-              })
-            "
-            class="icon"
-            aria-hidden="true"
-          >
-            <use xlink:href="#icon-sousuo"></use>
-          </svg>
-        </template>
-      </TopNav>
-      <Card class="card1">
-        <div class="userImg">
-          <van-image
-            :src="require('@/assets/imgs/user_default.png')"
-            width="50"
-            height="50"
-            round
-            class="avatarUrl"
-          />
-        </div>
-        <div class="nickname" @click="$router.push('/login')">登录后查看</div>
-      </Card>
-      <!-- 我喜欢的音乐 -->
-      <Card class="card2">
-        <div>
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-aixin1-copy"></use>
-          </svg>
-        </div>
-        <div>
-          <div class="title">我喜欢的音乐</div>
-          <span>0首</span>
-        </div>
-      </Card>
-    </div>
-    <div v-else>
-      <TopNav>
-        <template #right>
-          <svg
-            @click="
-              $router.push({
-                name: 'Search'
-              })
-            "
-            class="icon"
-            aria-hidden="true"
-          >
-            <use xlink:href="#icon-sousuo"></use>
-          </svg>
-        </template>
-      </TopNav>
-      <Card class="card1">
-        <div class="userImg">
-          <van-image
-            :src="data.avatarUrl"
-            width="50"
-            height="50"
-            round
-            class="avatarUrl"
-          />
-        </div>
-        <div class="nickname">{{ data.nickname }}</div>
-      </Card>
-    </div>
-  </div>
+  <TopNav>
+    <template #right>
+      <svg
+        @click="
+          $router.push({
+            name: 'Search'
+          })
+        "
+        class="icon"
+        aria-hidden="true"
+      >
+        <use xlink:href="#icon-sousuo" />
+      </svg>
+    </template>
+  </TopNav>
+  <UserInfo />
+  <!-- 我喜欢的音乐 -->
+  <MyMusicList :count="data.likedMusicCount" :id="data.likedMusicId" />
+  <!-- 创建歌单 收藏歌单 -->
+  <MyPlayList
+    :createdPlaylist="data.createdPlaylist"
+    :subscribedPlaylist="data.subscribedPlaylist"
+  />
 </template>
 
 <script setup>
+import { getUserSubcount, getUserPlaylist } from '@/api/user.js'
 import TopNav from "@/components/TopNav.vue";
-import Card from "@/components/Card.vue";
+import UserInfo from './childComponent/UserInfo.vue'
+import MyMusicList from './childComponent/MyMusicList.vue'
+import MyPlayList from './childComponent/MyPlayList.vue'
 import { useStore } from "vuex";
 import { reactive } from "vue";
 const store = useStore();
 const data = reactive({
   isLogin: store.state.isLogin,
-  nickname: store.state.userInfo.nickname,
-  avatarUrl: store.state.userInfo.avatarUrl
+  id: store.state.userInfo.userId,
+  // 创建歌单数量
+  createdPlaylistCount: 0,
+  // 收藏歌单数量
+  subPlaylistCount: 0,
+  // 我喜欢的歌单数量
+  likedMusicCount: 0,
+  // 喜欢 的歌单 id
+  likedMusicId: 0,
+  // 创建的歌单
+  createdPlaylist: [],
+  // 收藏的歌单
+  subscribedPlaylist: []
 });
+if (data.isLogin) {
+  getUserSubcount().then(res => {
+    data.createdPlaylistCount = res.createdPlaylistCount
+    data.subPlaylistCount = res.subPlaylistCount
+  })
+  getUserPlaylist({ uid: data.id, limit: 100 }).then(res => {
+    data.likedMusicCount = res.playlist[0].trackCount
+    data.likedMusicId = res.playlist[0].id
+    res.playlist.shift()
+    // console.log(res.playlist);
+    data.createdPlaylist = res.playlist.filter(item => !item.subscribed)
+    data.subscribedPlaylist = res.playlist.filter(item => item.subscribed)
+  })
+}
 </script>
 
 <style scoped lang='less'>
-.card1 {
-  margin-top: 20px;
-  .userImg {
-    position: relative;
-    .avatarUrl {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translate(-50%, -50%);
-    }
-  }
-  .nickname {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 14px;
-  }
-}
-.card2 {
-  display: flex;
-  align-items: center;
-  > div:first-child {
-    width: 40px;
-    height: 40px;
-    margin-right: 15px;
-    border-radius: 10px;
-    background-color: #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .icon {
-      color: #fff;
-    }
-  }
-  div:nth-child(2) {
-    display: flex;
-    flex-direction: column;
-  }
-}
 </style>

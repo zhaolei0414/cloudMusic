@@ -3,36 +3,41 @@
     <div class="playlist-top">
       <div class="left" @click="playAll">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-bofang"></use>
+          <use xlink:href="#icon-bofang" />
         </svg>
         <span>播放全部(共{{ playlist.tracks.length }}首)</span>
       </div>
       <div class="right">
-        <van-button type="danger" class="vbtn"
-          >收藏({{ playlist.shareCount }})</van-button
-        >
+        <van-button
+          v-show="subscribed"
+          @click="doCollection"
+          type="success"
+          round
+        >已收藏({{ changeValue(playlist.subscribedCount) }})</van-button>
+        <van-button
+          v-show="!subscribed"
+          @click="doCollection"
+          type="warning"
+          round
+        >收藏({{ changeValue(playlist.subscribedCount) }})</van-button>
       </div>
     </div>
     <div class="list">
       <ul>
-        <li
-          @click="play(i)"
-          v-for="(item, i) in playlist.tracks"
-          :key="item.id"
-        >
+        <li @click="play(i)" v-for="(item, i) in playlist.tracks" :key="item.id">
           <div class="left">
             <div class="index">{{ i + 1 }}</div>
             <div class="context">
-              <span class="title">{{ item.name }}</span>
-              <span class="author">{{ item.al.name }}</span>
+              <span class="title van-ellipsis">{{ item.name }}</span>
+              <span class="author van-multi-ellipsis--l2">{{ item.al.name }}</span>
             </div>
           </div>
           <div class="right">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-bofang"></use>
+              <use xlink:href="#icon-bofang" />
             </svg>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-24gl-playlistMusic"></use>
+              <use xlink:href="#icon-24gl-playlistMusic" />
             </svg>
           </div>
         </li>
@@ -42,15 +47,29 @@
 </template>
 
 <script>
-import { Button } from "vant";
+import { Button, Toast } from "vant";
 // import { inject } from "vue";
-
+import { postSubscribe } from '@/api/playList.js'
+import { changeValue } from '@/utils/changeValue.js'
 export default {
   props: ["playlist"],
   components: {
     [Button.name]: Button
   },
-
+  data() {
+    return {
+      // t类型 t : 类型,1:收藏,2:取消收藏 
+      t: 1,
+      // 是否收藏
+      subscribed: false
+    }
+  },
+  watch: {
+    // 是否已收藏
+    playlist(newValue, oldValue) {
+      this.subscribed = newValue.subscribed
+    }
+  },
   methods: {
     play(i) {
       // console.log(i, this.$store.state.playCurrentIndex);
@@ -74,6 +93,37 @@ export default {
       });
       // 通知vuex修改播放/暂停图标
       this.$store.commit("setPaused", false);
+    },
+    doCollection() {
+      if (this.$store.state.isLogin) {
+        // 已登录
+        // 发起收藏歌单请求
+        const id = this.$route.query.id
+        if (this.subscribed) {
+          // 已收藏,点击取消收藏
+          postSubscribe({ t: 2, id: id, timestamp: new Date().getTime() }).then(res => {
+            if (res.data.code === 200) {
+              Toast.success('已取消收藏')
+              this.subscribed = false
+            }
+          })
+        } else {
+          // 未收藏  点击收藏歌单
+          postSubscribe({ t: 1, id: id, timestamp: new Date().getTime() }).then(res => {
+            if (res.data.code === 200) {
+              Toast.success('收藏成功')
+              this.subscribed = true
+            }
+          })
+        }
+      } else {
+        // 提示需要先登录
+        Toast.fail('请先登录')
+      }
+    },
+    changeValue(count) {
+      // console.log(count);
+      return changeValue(count)
     }
   }
 };
@@ -141,12 +191,5 @@ export default {
       }
     }
   }
-}
-.vbtn {
-  height: 40px;
-  width: 100px;
-  border-radius: 20px;
-  background-color: orange;
-  border: hidden;
 }
 </style>

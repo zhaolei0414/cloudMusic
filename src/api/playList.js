@@ -57,3 +57,16 @@ export const postCommentLike = (obj) => post('/comment/like', obj)
 
 // 说明 : 调用此接口,可发送评论或者删除评论
 export const postComment = (obj) => post('/comment', obj)
+/**
+ * 说明 : 调用此接口 , 传入音乐 id, 可喜欢该音乐
+ * 必选参数 : id: 歌曲 id
+ *可选参数 : like: 布尔值 , 默认为 true 即喜欢 , 若传 false, 则取消喜欢
+ */
+export const getLiked = (options) => get('/like', options)
+
+/**
+ * 说明 : 调用此接口 , 传入类型和歌单 id 可收藏歌单或者取消收藏歌单
+必选参数 :
+t : 类型,1:收藏,2:取消收藏 id : 歌单 id
+ */
+export const postSubscribe = (options) => post('/playlist/subscribe', options)

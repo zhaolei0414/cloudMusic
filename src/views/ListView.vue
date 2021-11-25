@@ -28,7 +28,7 @@ const state = reactive({
 const store = useStore();
 const route = useRoute();
 const id = route.query.id;
-apiPlayListDetail({ id }).then(result => {
+apiPlayListDetail({ id, timestamp: new Date().getTime() }).then(result => {
   state.playlist = result.playlist;
   // console.log(state.playlist.tracks);
   // store.commit("setPlaylist", result.playlist.tracks);

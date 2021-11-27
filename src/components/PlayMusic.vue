@@ -105,7 +105,7 @@
 import { Popup, Slider, Toast, Icon } from "vant";
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import { mapState, useStore } from "vuex";
-import { getLiked } from '@/api/playList.js'
+import { getLiked } from '@/api/playList.ts'
 const props = defineProps({
   show: Boolean,
   playDetail: Object,

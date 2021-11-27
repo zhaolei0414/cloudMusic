@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { getMVExclusive } from '@/api/mv.js'
+import { getMVExclusive } from '@/api/mv.ts'
 import { List, Tag } from 'vant';
 import { ref, reactive } from 'vue'
 const loading = ref(false);

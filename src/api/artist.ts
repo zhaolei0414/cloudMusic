@@ -1,20 +1,21 @@
-import { get } from './index.js'
+import { get } from './index'
 
 /* 
 说明 : 调用此接口 , 传入歌手 id, 可获得歌手描述
 
 必选参数 : id: 歌手 id
 */
-export const getArtistDesc = (id) => get('/artist/desc', { id: id })
+
+export const getArtistDesc = (id: string | number) => get('/artist/desc', { id: id })
 
 
 /* 说明 : 调用此接口 , 传入歌手 id, 可获得获取歌手详情
 
 必选参数 : id: 歌手 id */
-export const getArtistDetail = (id) => get('/artist/detail', { id: id })
+export const getArtistDetail = (id: string | number) => get('/artist/detail', { id: id })
 
 /* 说明 : 调用此接口,可获取歌手热门50首歌曲 */
-export const getArtistTopSong = (id) => get('/artist/top/song', { id: id })
+export const getArtistTopSong = (id: string | number) => get('/artist/top/song', { id: id })
 
 /*
   说明 : 调用此接口,可获取歌手全部歌曲 必选参数 :
@@ -28,4 +29,4 @@ export const getArtistTopSong = (id) => get('/artist/top/song', { id: id })
  * @param {Object} options [id:歌手id(必选),order:[hot,time],limit:50,offset:50]
  *  */
 
-export const getArtistSongs = (options) => get('/artist/songs', options)
+export const getArtistSongs = (options: object) => get('/artist/songs', options)

@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { getTopList } from "@/api/home.js";
+import { getTopList } from "@/api/home.ts";
 import ScrollX from "@/components/ScrollX.vue";
 import ListNav from "@/components/ListNav.vue";
 

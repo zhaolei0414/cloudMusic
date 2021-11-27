@@ -9,7 +9,7 @@
           :key="item.id"
           class="recommendList"
         >
-          <img :src="item.picUrl" alt="" />
+          <img :src="item.picUrl" alt />
         </router-link>
       </div>
     </ScrollX>
@@ -19,7 +19,7 @@
 <script setup>
 import ListNav from "@/components/ListNav.vue";
 import ScrollX from "@/components/ScrollX.vue";
-import { getArtist } from "@/api/home.js";
+import { getArtist } from "@/api/home.ts";
 import { reactive } from "vue";
 const artistsList = reactive([]);
 getArtist().then((res) => {

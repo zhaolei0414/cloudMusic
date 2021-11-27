@@ -67,7 +67,7 @@
 import NavBar from "./childComponent/NavBar.vue";
 import { Swipe, SwipeItem } from "vant";
 import { useRoute } from "vue-router";
-import { getMVDetail, getMVUrl, getSimiMV, getMVDetailInfo } from "@/api/mv.js";
+import { getMVDetail, getMVUrl, getSimiMV, getMVDetailInfo } from "@/api/mv.ts";
 import { ref, onMounted, reactive, nextTick } from "vue";
 import { useStore } from "vuex";
 const route = useRoute();

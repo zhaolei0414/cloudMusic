@@ -2,15 +2,13 @@
   <div class="hot">
     <h4>推荐搜索:</h4>
     <ul class="lists">
-      <li v-for="(item, i) in hots" :key="i" @click="$emit('searchHot', item)">
-        {{ item }}
-      </li>
+      <li v-for="(item, i) in hots" :key="i" @click="$emit('searchHot', item)">{{ item }}</li>
     </ul>
   </div>
 </template>
 
 <script setup>
-import { getHot } from "@/api/search.js";
+import { getHot } from "@/api/search.ts";
 import { reactive } from "vue";
 const hots = reactive([]);
 getHot().then((res) => {

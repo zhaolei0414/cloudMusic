@@ -29,12 +29,7 @@
               class="liItem"
             >
               <div class="pic">
-                <van-image
-                  :src="item.cover"
-                  width="45vw"
-                  height="15vh"
-                  radius="10px"
-                />
+                <van-image :src="item.cover" width="45vw" height="15vh" radius="10px" />
               </div>
               <div class="msg">
                 <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
@@ -59,12 +54,7 @@
               class="liItem"
             >
               <div class="pic">
-                <van-image
-                  :src="item.cover"
-                  width="45vw"
-                  height="15vh"
-                  radius="10px"
-                />
+                <van-image :src="item.cover" width="45vw" height="15vh" radius="10px" />
               </div>
               <div class="msg">
                 <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
@@ -89,12 +79,7 @@
               class="liItem"
             >
               <div class="pic">
-                <van-image
-                  :src="item.cover"
-                  width="45vw"
-                  height="15vh"
-                  radius="10px"
-                />
+                <van-image :src="item.cover" width="45vw" height="15vh" radius="10px" />
               </div>
               <div class="msg">
                 <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
@@ -111,7 +96,7 @@
 <script setup>
 import { Tab, Tabs, List, Cell } from "vant";
 import { reactive, ref } from "vue";
-import { getMVAll } from "@/api/mv.js";
+import { getMVAll } from "@/api/mv.ts";
 // 国家
 const area = ref("全部");
 // 类型

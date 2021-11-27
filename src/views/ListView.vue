@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { apiPlayListDetail } from "@/api/playList.js";
+import { apiPlayListDetail } from "@/api/playList.ts";
 import { ref, reactive, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";

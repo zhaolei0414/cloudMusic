@@ -5,32 +5,28 @@
     <div v-show="!isLoading" class="listView">
       <div class="listViewTop">
         <!-- 背景图片 -->
-        <img :src="data.album.blurPicUrl" alt="" />
+        <img :src="data.album.blurPicUrl" alt />
         <nav class="listViewTopNav">
           <div class="left">
             <div @click="$router.go(-1)">
               <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-zuojiantou"></use>
+                <use xlink:href="#icon-zuojiantou" />
               </svg>
             </div>
             <div class="title">专辑</div>
           </div>
           <div class="right">
-            <svg
-              class="icon"
-              aria-hidden="true"
-              @click="$router.push('/search')"
-            >
-              <use xlink:href="#icon-sousuo"></use>
+            <svg class="icon" aria-hidden="true" @click="$router.push('/search')">
+              <use xlink:href="#icon-sousuo" />
             </svg>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-danlieliebiao"></use>
+              <use xlink:href="#icon-danlieliebiao" />
             </svg>
           </div>
         </nav>
         <div class="context">
           <div class="contextLeft">
-            <img :src="data.album.picUrl" alt="" />
+            <img :src="data.album.picUrl" alt />
           </div>
           <div class="contextRight">
             <h3>{{ data.album.name }}</h3>
@@ -45,20 +41,20 @@
         <div class="iconList">
           <div>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-xinxi"></use>
+              <use xlink:href="#icon-xinxi" />
             </svg>
             <span>{{ data.album.info.commentCount }}</span>
           </div>
           <div>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-fenxiang1"></use>
+              <use xlink:href="#icon-fenxiang1" />
             </svg>
             <span>{{ data.album.info.shareCount }}</span>
           </div>
 
           <div>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-tuijian"></use>
+              <use xlink:href="#icon-tuijian" />
             </svg>
             <span>{{ data.album.info.resourceType }}</span>
           </div>
@@ -68,14 +64,12 @@
         <div class="playlist-top">
           <div class="left" @click="playAll">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-bofang"></use>
+              <use xlink:href="#icon-bofang" />
             </svg>
             <span>播放全部(共{{ data.songs.length }}首)</span>
           </div>
           <div class="right">
-            <van-button type="danger" class="vbtn"
-              >喜欢({{ data.album.info.likedCount }})</van-button
-            >
+            <van-button type="danger" class="vbtn">喜欢({{ data.album.info.likedCount }})</van-button>
           </div>
         </div>
         <div class="list">
@@ -89,10 +83,10 @@
               </div>
               <div class="right">
                 <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-bofang"></use>
+                  <use xlink:href="#icon-bofang" />
                 </svg>
                 <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-24gl-playlistMusic"></use>
+                  <use xlink:href="#icon-24gl-playlistMusic" />
                 </svg>
               </div>
             </li>
@@ -105,8 +99,8 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { getAlbum } from "@/api/album.js";
-import { getLocalTime } from "@/utils/getLocalTime.js";
+import { getAlbum } from "@/api/album.ts";
+import { getLocalTime } from "@/utils/getLocalTime.ts";
 import { NavBar, Button as VanButton, Loading } from "vant";
 import { ref, reactive, nextTick } from "vue";
 import { useStore } from "vuex";

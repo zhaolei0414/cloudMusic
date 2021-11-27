@@ -1,11 +1,11 @@
 <template>
-  <div class="scroll-wrapper" ref="wrapper">
+  <div class="scroll-wrapper-self" ref="wrapper">
     <div class="scroll-content">
       <div class="flex">
         <div v-for="item in data" :key="item.id" class="iconItem">
           <a :href="item.url">
             <span>
-              <img :src="item.iconUrl" alt="" />
+              <img :src="item.iconUrl" alt />
             </span>
             <p>{{ item.name }}</p>
           </a>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { apiDragonBall } from "@/api/home.js";
+import { apiDragonBall } from "@/api/home.ts";
 import { reactive, ref, onMounted, onUnmounted } from "vue";
 // 引入BScroll 滑动组件
 import BScroll from "@better-scroll/core";
@@ -49,10 +49,10 @@ onUnmounted(() => {
 </script>
 
 <style lang="less" scoped>
-.scroll-wrapper {
+.scroll-wrapper-self {
   position: relative;
   width: 100vw;
-  height: 100px !important;
+  margin-bottom: 15px;
   white-space: nowrap;
   margin-top: 15px;
   overflow: hidden;

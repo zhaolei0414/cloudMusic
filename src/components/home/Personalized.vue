@@ -25,13 +25,13 @@
 </template>
 
 <script setup>
-import { apiPersonalized } from "@/api/home.js";
+import { apiPersonalized } from "@/api/home.ts";
 import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
 // 引入BScroll 滑动组件
 import BScroll from "@better-scroll/core";
 /* 
-	 数据部分
-	 */
+   数据部分
+   */
 const list = reactive([]);
 // limit: 取出数量 , 默认为 30 (不支持 offset)
 apiPersonalized({ limit: 6 }).then(res => {
@@ -39,8 +39,8 @@ apiPersonalized({ limit: 6 }).then(res => {
   list.push(...data);
 });
 /* 
-	BScroll 
-	 */
+  BScroll 
+   */
 let bs = null;
 function bsInit(doc) {
   bs = new BScroll(doc, {

@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { getPersonalizeRecommend } from '@/api/dj.js'
+import { getPersonalizeRecommend } from '@/api/dj.ts'
 import { Tag } from 'vant'
 import { reactive } from 'vue'
 const data = reactive({

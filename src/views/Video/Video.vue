@@ -4,7 +4,7 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { getMVDetail } from "@/api/mv.js";
+import { getMVDetail } from "@/api/mv.ts";
 const route = useRoute();
 const id = route.query.id;
 getMVDetail(id).then(res => {

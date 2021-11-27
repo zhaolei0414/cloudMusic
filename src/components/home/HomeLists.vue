@@ -2,13 +2,9 @@
   <div class="homelists">
     <nav>
       <div>
-        <span @click="changeToList" :class="{ active: data.page === 'list' }"
-          >精品歌单</span
-        >
+        <span @click="changeToList" :class="{ active: data.page === 'list' }">精品歌单</span>
         <span>丨</span>
-        <span @click="changeToSong" :class="{ active: data.page === 'song' }"
-          >新音乐</span
-        >
+        <span @click="changeToSong" :class="{ active: data.page === 'song' }">新音乐</span>
       </div>
       <span class="more" @click="$router.push('/songListCenter')">更多</span>
     </nav>
@@ -52,12 +48,7 @@
             @touchend="touchend(item.id, 'list')"
           >
             <div class="left">
-              <van-image
-                :src="item.coverImgUrl"
-                width="40"
-                height="40"
-                radius="10"
-              />
+              <van-image :src="item.coverImgUrl" width="40" height="40" radius="10" />
             </div>
             <div class="right van-ellipsis">{{ item.name }}</div>
           </li>
@@ -81,12 +72,7 @@
             @touchend="touchend(item.id, 'song')"
           >
             <div class="left">
-              <van-image
-                :src="item.picUrl"
-                width="40"
-                height="40"
-                radius="10"
-              />
+              <van-image :src="item.picUrl" width="40" height="40" radius="10" />
             </div>
             <div class="right van-ellipsis">{{ item.name }}</div>
           </li>
@@ -102,12 +88,7 @@
             @touchend="touchend(item.id, 'song')"
           >
             <div class="left">
-              <van-image
-                :src="item.picUrl"
-                width="40"
-                height="40"
-                radius="10"
-              />
+              <van-image :src="item.picUrl" width="40" height="40" radius="10" />
             </div>
             <div class="right van-ellipsis">{{ item.name }}</div>
           </li>
@@ -122,7 +103,7 @@ import { Swipe, SwipeItem } from "vant";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { getTopPlaylist, getPersonalizedNewsong } from "@/api/home.js";
+import { getTopPlaylist, getPersonalizedNewsong } from "@/api/home.ts";
 
 const props = defineProps(["homeData"]);
 const router = useRouter();

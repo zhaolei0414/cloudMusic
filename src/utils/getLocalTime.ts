@@ -1,4 +1,4 @@
-export const getLocalTime = function (dateTime) {
+export const getLocalTime = function (dateTime: any) {
   if (typeof dateTime !== 'number') {
     console.error('需要传入一个number');
   }

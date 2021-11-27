@@ -1,4 +1,4 @@
-export const changeValue = (value) => {
+export const changeValue = (value: any) => {
   if (typeof value === 'string') {
     value = +value
   }

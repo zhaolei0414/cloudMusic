@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { getUserSubcount, getUserPlaylist } from '@/api/user.js'
+import { getUserSubcount, getUserPlaylist } from '@/api/user.ts'
 import TopNav from "@/components/TopNav.vue";
 import UserInfo from './childComponent/UserInfo.vue'
 import MyMusicList from './childComponent/MyMusicList.vue'

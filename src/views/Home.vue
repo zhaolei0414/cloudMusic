@@ -46,7 +46,7 @@ import HomeLists from "@/components/home/HomeLists.vue";
 import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { apiBanner, getAllHomeData } from "@/api/home.js";
+import { apiBanner, getAllHomeData } from "@/api/home.ts";
 import { getUserAgent } from "@/utils/getUserAgent";
 import BScroll from "@better-scroll/core";
 const name = "Home";

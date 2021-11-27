@@ -8,14 +8,10 @@
       fit="cover"
       :src="artist.detail.artist.cover"
     ></van-image>
-    <NavBar
-      :border="false"
-      fixed
-      :style="{ backgroundColor: 'rgba(255,255,255,0)' }"
-    >
+    <NavBar :border="false" fixed :style="{ backgroundColor: 'rgba(255,255,255,0)' }">
       <template #left>
         <svg class="icon" aria-hidden="true" @click="$router.go(-1)">
-          <use xlink:href="#icon-zuojiantou"></use>
+          <use xlink:href="#icon-zuojiantou" />
         </svg>
       </template>
       <template #right>
@@ -27,9 +23,7 @@
     <div class="card">
       <h3>{{ artist.detail.artist.name }}</h3>
       <div>歌曲数量: {{ artist.detail.artist.musicSize }}</div>
-      <div>
-        {{ imageDesc }}
-      </div>
+      <div>{{ imageDesc }}</div>
       <Button type="danger" round class="starBtn">关注</Button>
     </div>
 
@@ -53,24 +47,19 @@
         <div class="top">
           <div class="left">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-bofang1-copy-copy"></use>
+              <use xlink:href="#icon-bofang1-copy-copy" />
             </svg>
             <h3>播放热门50</h3>
           </div>
           <div class="right">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-tianjia"></use>
+              <use xlink:href="#icon-tianjia" />
             </svg>
           </div>
         </div>
         <!-- 播放列表 -->
         <main>
-          <List
-            v-model:loading="loading"
-            :finished="finished"
-            finished-text="没有更多了"
-            @load="onLoad"
-          >
+          <List v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
             <li
               v-for="(item, i) in topSongData.songs"
               :key="item.id"
@@ -101,7 +90,7 @@ import {
   getArtistDetail,
   getArtistTopSong,
   getArtistSongs
-} from "@/api/artist.js";
+} from "@/api/artist.ts";
 import { ref, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";

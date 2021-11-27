@@ -1,4 +1,4 @@
-import { get } from './index.js'
+import { get } from './index'
 
 /**
  * 说明 : 调用此接口,可获取电台 banner
@@ -26,7 +26,7 @@ export const getPersonalizeRecommend = () => get('/dj/personalize/recommend')
 
 `asc` : 排序方式,默认为 `false` (新 => 老 ) 设置 `true` 可改为 老 => 新
  */
-export const getDJProgram = (options) => get(`/dj/program`, options)
+export const getDJProgram = (options: object) => get(`/dj/program`, options)
 
 /**
  * ### 电台 - 节目详情
@@ -36,4 +36,4 @@ export const getDJProgram = (options) => get(`/dj/program`, options)
 **必选参数 :** `id`: 电台节目 的 id
 
  */
-export const getDJDetail = (id) => get(`/dj/program/detail`, { id: id })
+export const getDJDetail = (id: string | number) => get(`/dj/program/detail`, { id: id })

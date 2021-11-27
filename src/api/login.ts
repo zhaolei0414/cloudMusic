@@ -1,15 +1,15 @@
-import { get, post } from './index.js'
+import { get, post } from './index'
 
 // 说明 : 调用此接口 ,传入手机号码, 可发送验证码
-export const getCaptcha = (phone) => get('/captcha/sent', phone)
+export const getCaptcha = (phone: object) => get('/captcha/sent', phone)
 
 // 说明 : 调用此接口 ,可检测手机号码是否已注册
 // 必选参数 :
 // phone : 手机号码
-export const getExistenceCheck = (phone) => get('/cellphone/existence/check', phone)
+export const getExistenceCheck = (phone: object) => get('/cellphone/existence/check', phone)
 
 // 说明 : 调用此接口 ,传入手机号码和验证码, 可校验验证码是否正确
-export const postcaptchaVerify = (object) => post('/captcha/verify', object)
+export const postcaptchaVerify = (object: object) => post('/captcha/verify', object)
 
 // 1. 手机登录
 // 必选参数 :
@@ -23,7 +23,7 @@ export const postcaptchaVerify = (object) => post('/captcha/verify', object)
 // 接口地址 : /login/cellphone
 
 // 调用例子 : /login/cellphone?phone=xxx&password=yyy /login/cellphone?phone=xxx&md5_password=yyy /login/cellphone?phone=xxx&captcha=1234
-export const postLoginInfo = (object) => post('/login/cellphone', object)
+export const postLoginInfo = (object: object) => post('/login/cellphone', object)
 
 /* 
 2. 邮箱登录
@@ -33,7 +33,7 @@ email: 163 网易邮箱
 
 password: 密码
 */
-export const postLoginMail = (object) => post('/login', object)
+export const postLoginMail = (object: object) => post('/login', object)
 
 /* 刷新登录
 说明 : 调用此接口 , 可刷新登录状态

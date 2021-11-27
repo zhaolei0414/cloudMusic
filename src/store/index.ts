@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import { apigetPlayLyric } from '@/api/playList.js'
-import { getLoginStatus, getLogout } from "@/api/login.js";
+import { apigetPlayLyric } from '@/api/playList'
+import { getLoginStatus, getLogout } from "@/api/login";
 export default createStore({
   state: {
     // 歌单
@@ -55,7 +55,7 @@ export default createStore({
           time: parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000
         }
       })
-      arr.forEach((item, i) => {
+      arr.forEach((item: any, i) => {
         if (i < arr.length - 1) {
           item.pre = arr[i + 1].time
         } else {
@@ -83,7 +83,7 @@ export default createStore({
     },
     setCurrentTime(state, value) {
       // console.log(value);
-      state.currentTime = parseInt(value * 1000)
+      state.currentTime = parseInt('' + value * 1000)
     },
     setcurrentTimePrecent(state, value) {
       state.currentTimePrecent = value
@@ -104,7 +104,7 @@ export default createStore({
     setUserPhone(state, value) {
       state.userInfo.phone = value
     },
-    setUserInfo(state, value) {
+    setUserInfo(state: any, value) {
       // value 是一个对象
       // 如果传一个空对象，清空数据
       if (Object.keys(value).length === 0) {
@@ -129,7 +129,7 @@ export default createStore({
   },
   actions: {
     async reqLyric(content, payload) {
-      let result = await apigetPlayLyric({ id: payload })
+      let result: any = await apigetPlayLyric({ id: payload })
       // console.log(result);
       content.commit('setLyric', result.lrc.lyric)
       // console.log(result.lrc.lyric);
@@ -137,7 +137,7 @@ export default createStore({
     // 检查是否登录，如果是登录状态，获取用户信息，保存
     async checkLogin(content, payload) {
       try {
-        let result = await getLoginStatus()
+        let result: any = await getLoginStatus()
         console.log(result.data);
         if (result.data.code === 200 && result.data.profile !== null) {
           // 登录状态
@@ -150,7 +150,7 @@ export default createStore({
       }
     },
     async logout(content, payload) {
-      const res = await getLogout()
+      const res: any = await getLogout()
       if (res.code === 200) {
         // 退出登录,清除用户信息
         content.commit('setLogin', false)

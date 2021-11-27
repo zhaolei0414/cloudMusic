@@ -131,7 +131,7 @@
 </template>
 
 <script setup>
-import { getMVFirst } from '@/api/mv.js';
+import { getMVFirst } from '@/api/mv.ts';
 import { Tab, Tabs, List, Tag } from "vant";
 import { ref, reactive } from 'vue'
 const area = ref('全部')

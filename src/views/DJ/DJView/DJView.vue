@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { getDJProgram, getDJDetail } from '@/api/dj.js'
+import { getDJProgram, getDJDetail } from '@/api/dj.ts'
 import { Loading, List, Cell, CellGroup } from 'vant';
 import { useRoute } from 'vue-router';
 import { reactive, ref, nextTick } from 'vue'

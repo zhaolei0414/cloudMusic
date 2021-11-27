@@ -2,20 +2,20 @@
  * api接口统一管理
  */
 
-import { get } from './index.js'
+import { get } from './index'
 
 // 说明: 调用此接口, 可获取APP首页信息
 // 可选参数 : refresh: 是否刷新数据,默认为false
 // cursor: 上一条数据返回的cursor
-export const getAllHomeData = (p) => get('/homepage/block/page', p)
+export const getAllHomeData = (p: object) => get('/homepage/block/page', p)
 // 首页轮播图
-export const apiBanner = (p) => get('/banner', p)
+export const apiBanner = (p: object) => get('/banner', p)
 
 // 说明 : 调用此接口 , 可获取APP首页圆形图标入口列表
 export const apiDragonBall = () => get('/homepage/dragon/ball')
 // 说明 : 调用此接口 , 可获取推荐歌单
 // 可选参数 : limit: 取出数量 , 默认为 30 (不支持 offset)
-export const apiPersonalized = (p) => get('/personalized', p)
+export const apiPersonalized = (p: object) => get('/personalized', p)
 
 // 说明 : 调用此接口,可获取所有榜单 接口地址 : /toplist
 export const getTopList = () => get('/toplist')
@@ -27,7 +27,7 @@ export const getArtist = () => get('/toplist/artist')
 *limit: 取出歌单数量 , 默认为 20
 *before: 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
 */
-export const getTopPlaylist = (options) => get('/top/playlist/highquality', options)
+export const getTopPlaylist = (options: object) => get('/top/playlist/highquality', options)
 /**
  * 说明 : 调用此接口 , 可获取推荐新音乐
  *可选参数 : limit: 取出数量 , 默认为 10 (不支持 offset)

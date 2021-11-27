@@ -49,8 +49,8 @@
 <script>
 import { Button, Toast } from "vant";
 // import { inject } from "vue";
-import { postSubscribe } from '@/api/playList.js'
-import { changeValue } from '@/utils/changeValue.js'
+import { postSubscribe } from '@/api/playList.ts'
+import { changeValue } from '@/utils/changeValue.ts'
 export default {
   props: ["playlist"],
   components: {

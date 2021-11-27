@@ -32,6 +32,18 @@ const store = useStore();
 store.dispatch("checkLogin");
 </script>
 <style lang="less">
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 50px;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -39,6 +51,7 @@ store.dispatch("checkLogin");
   font-family: "微软雅黑";
 }
 body {
+  font-size: 0.3rem;
   background-color: var(--van-background-color);
 }
 a {

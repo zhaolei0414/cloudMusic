@@ -9,8 +9,7 @@
         :placeholder="showKeyword"
         class="field"
         shape="round"
-      >
-      </Search>
+      ></Search>
       <span @click="$router.go(-1)">取 消</span>
     </CellGroup>
     <!-- 搜索历史 -->
@@ -25,9 +24,7 @@
           :key="i"
           @click="searchSuggest(item.keyword)"
           class="searchSuggestLi van-hairline--bottom"
-        >
-          {{ item.keyword }}
-        </li>
+        >{{ item.keyword }}</li>
       </ul>
     </div>
     <!-- 弹出层 当按下enter搜索时显示 -->
@@ -48,24 +45,13 @@
             v-model="userInput"
             @keydown.enter="search"
             shape="round"
-          >
-          </Search>
+          ></Search>
         </Col>
       </Row>
-      <Tabs
-        v-model:active="active"
-        @click-tab="onClickTab"
-        class="tabs"
-        sticky
-        swipeable
-      >
+      <Tabs v-model:active="active" @click-tab="onClickTab" class="tabs" sticky swipeable>
         <Tab title="单曲">
           <ul>
-            <li
-              v-for="(item, i) in recommendSongs.songsList"
-              :key="item.id"
-              @click="playList(i)"
-            >
+            <li v-for="(item, i) in recommendSongs.songsList" :key="item.id" @click="playList(i)">
               <div class="flex">
                 <div class="flexColumn">
                   <span>{{ item.name }}</span>
@@ -73,7 +59,7 @@
                 </div>
                 <div>
                   <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-bofang1-copy"></use>
+                    <use xlink:href="#icon-bofang1-copy" />
                   </svg>
                 </div>
               </div>
@@ -95,11 +81,11 @@
                 </div>
                 <div class="right">
                   <div>{{ item.name }}</div>
-                  <span
-                    >by {{ item.creator.nickname }} 播放{{
+                  <span>
+                    by {{ item.creator.nickname }} 播放{{
                       changeValue(item.playCount)
-                    }}次</span
-                  >
+                    }}次
+                  </span>
                 </div>
               </li>
             </router-link>
@@ -116,15 +102,13 @@
               class="artists"
             >
               <div class="left">
-                <img :src="item.picUrl" alt="" />
+                <img :src="item.picUrl" alt />
               </div>
               <div class="right">
                 <span>{{ item.name }}</span>
-                <span
-                  ><Button round plain type="warning" size="mini"
-                    >关注</Button
-                  ></span
-                >
+                <span>
+                  <Button round plain type="warning" size="mini">关注</Button>
+                </span>
               </div>
             </li>
           </ul>
@@ -139,16 +123,17 @@
               @click="routerToAlbumsView(item.id)"
             >
               <div class="left">
-                <img :src="item.picUrl" alt="" />
+                <img :src="item.picUrl" alt />
               </div>
               <div class="right">
-                <span
-                  >{{ item.name }} <i>{{ item.alias[0] }}</i></span
-                >
-                <span
-                  >{{ item.artists[0].name }}
-                  <i>{{ getLocalTime(item.publishTime) }}</i></span
-                >
+                <span>
+                  {{ item.name }}
+                  <i>{{ item.alias[0] }}</i>
+                </span>
+                <span>
+                  {{ item.artists[0].name }}
+                  <i>{{ getLocalTime(item.publishTime) }}</i>
+                </span>
               </div>
             </li>
           </ul>
@@ -177,12 +162,12 @@ import {
 import { ref, reactive, nextTick } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { getDefault, getSuggest, getSearchSuggest } from "@/api/search.js";
-import { getLocalTime } from "@/utils/getLocalTime.js";
+import { getDefault, getSuggest, getSearchSuggest } from "@/api/search.ts";
+import { getLocalTime } from "@/utils/getLocalTime.ts";
 import Hot from "./childComponents/Hot.vue";
 import History from "./childComponents/History.vue";
-import { changeValue } from "@/utils/changeValue.js";
-import { saveLocalStorage } from "@/utils/utilsLocalStorage.js";
+import { changeValue } from "@/utils/changeValue.ts";
+import { saveLocalStorage } from "@/utils/utilsLocalStorage.ts";
 
 let showKeyword = ref("");
 let realkeyword = ref("");

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <NavBar
-      title="歌单广场"
-      @click-left="$router.go(-1)"
-      left-arrow
-      fixed
-      placeholder
-    />
+    <NavBar title="歌单广场" @click-left="$router.go(-1)" left-arrow fixed placeholder />
     <Tabs v-model:active="active" animated swipeable sticky offset-top="46px">
       <Tab title="推荐">
         <div class="tabview">
@@ -28,9 +22,11 @@
                   <!-- 图片 -->
                   <van-image :src="item.picUrl" radius="10" />
                   <!-- 播放次数 -->
-                  <span class="playCount">{{
-                    changeValue(item.playCount)
-                  }}</span>
+                  <span class="playCount">
+                    {{
+                      changeValue(item.playCount)
+                    }}
+                  </span>
                 </div>
                 <!-- 标题 -->
                 <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
@@ -59,9 +55,11 @@
                   <!-- 图片 -->
                   <van-image :src="item.coverImgUrl" radius="10" />
                   <!-- 播放次数 -->
-                  <span class="playCount">{{
-                    changeValue(item.playCount)
-                  }}</span>
+                  <span class="playCount">
+                    {{
+                      changeValue(item.playCount)
+                    }}
+                  </span>
                 </div>
                 <!-- 标题 -->
                 <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
@@ -96,14 +94,14 @@
                     <!-- 图片 -->
                     <van-image :src="item.coverImgUrl" radius="10" />
                     <!-- 播放次数 -->
-                    <span class="playCount">{{
-                      changeValue(item.playCount)
-                    }}</span>
+                    <span class="playCount">
+                      {{
+                        changeValue(item.playCount)
+                      }}
+                    </span>
                   </div>
                   <!-- 标题 -->
-                  <div class="title van-multi-ellipsis--l2">
-                    {{ item.name }}
-                  </div>
+                  <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
                 </div>
               </Col>
             </Row>
@@ -136,14 +134,14 @@
                     <!-- 图片 -->
                     <van-image :src="item.coverImgUrl" radius="10" />
                     <!-- 播放次数 -->
-                    <span class="playCount">{{
-                      changeValue(item.playCount)
-                    }}</span>
+                    <span class="playCount">
+                      {{
+                        changeValue(item.playCount)
+                      }}
+                    </span>
                   </div>
                   <!-- 标题 -->
-                  <div class="title van-multi-ellipsis--l2">
-                    {{ item.name }}
-                  </div>
+                  <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
                 </div>
               </Col>
             </Row>
@@ -176,14 +174,14 @@
                     <!-- 图片 -->
                     <van-image :src="item.coverImgUrl" radius="10" />
                     <!-- 播放次数 -->
-                    <span class="playCount">{{
-                      changeValue(item.playCount)
-                    }}</span>
+                    <span class="playCount">
+                      {{
+                        changeValue(item.playCount)
+                      }}
+                    </span>
                   </div>
                   <!-- 标题 -->
-                  <div class="title van-multi-ellipsis--l2">
-                    {{ item.name }}
-                  </div>
+                  <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
                 </div>
               </Col>
             </Row>
@@ -216,14 +214,14 @@
                     <!-- 图片 -->
                     <van-image :src="item.coverImgUrl" radius="10" />
                     <!-- 播放次数 -->
-                    <span class="playCount">{{
-                      changeValue(item.playCount)
-                    }}</span>
+                    <span class="playCount">
+                      {{
+                        changeValue(item.playCount)
+                      }}
+                    </span>
                   </div>
                   <!-- 标题 -->
-                  <div class="title van-multi-ellipsis--l2">
-                    {{ item.name }}
-                  </div>
+                  <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
                 </div>
               </Col>
             </Row>
@@ -235,8 +233,8 @@
 </template>
 
 <script setup>
-import { apiPersonalized, getTopList, getTopPlaylist } from "@/api/home.js";
-import { changeValue } from "@/utils/changeValue.js";
+import { apiPersonalized, getTopList, getTopPlaylist } from "@/api/home.ts";
+import { changeValue } from "@/utils/changeValue.ts";
 import { NavBar, Tab, Tabs, Col, Row, Loading, List } from "vant";
 import { ref, reactive, nextTick } from "vue";
 const active = ref(0);

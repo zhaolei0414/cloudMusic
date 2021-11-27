@@ -1,11 +1,6 @@
 <template>
   <div class="email">
-    <NavBar
-      title="网易邮箱登录"
-      left-arrow
-      @click-left="$router.go(-1)"
-      :border="false"
-    />
+    <NavBar title="网易邮箱登录" left-arrow @click-left="$router.go(-1)" :border="false" />
     <CellGroup inset>
       <!-- 输入手机号，调起手机号键盘 -->
       <Field
@@ -29,21 +24,14 @@
         :style="{ borderBottom: '1px solid var(--van-border-color)' }"
         class="field"
       />
-      <Button
-        round
-        type="primary"
-        size="large"
-        color="#D87093"
-        @click="checkTel"
-        >登录</Button
-      >
+      <Button round type="primary" size="large" color="#D87093" @click="checkTel">登录</Button>
     </CellGroup>
   </div>
 </template>
 
 <script setup>
 import { NavBar, Field, CellGroup, Button, Toast } from "vant";
-import { postLoginMail } from "@/api/login.js";
+import { postLoginMail } from "@/api/login.ts";
 import { ref } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
@@ -63,7 +51,7 @@ const sendLoginInfo = async () => {
     console.log(result);
     //  ...
     if (result.data.code === 200) {
-      localStorage.setItem("userInfo", JSON.stringify(result.data));
+      localStorage.setItem("userInfo", tsON.stringify(result.data));
       // 将得到的用户信息保存到 localStorage
       localStorage.setItem("token", result.data.token); //暂不知怎么用
 

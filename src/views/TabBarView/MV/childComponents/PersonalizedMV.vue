@@ -11,12 +11,7 @@
           @click="$router.push(`/mvview?id=${item.id}`)"
         >
           <div class="left">
-            <van-image
-              :src="item.picUrl"
-              width="35vw"
-              height="15vh"
-              radius="10px"
-            />
+            <van-image :src="item.picUrl" width="35vw" height="15vh" radius="10px" />
           </div>
           <div class="right">
             <div class="title van-multi-ellipsis--l2">{{ item.name }}</div>
@@ -31,8 +26,8 @@
 </template>
 
 <script setup>
-import { getPersonalizedMV, getProgramRecommend } from "@/api/mv.js";
-import { getLocalTime } from "@/utils/getLocalTime.js";
+import { getPersonalizedMV, getProgramRecommend } from "@/api/mv";
+import { getLocalTime } from "@/utils/getLocalTime";
 import { reactive } from "vue";
 import { Divider, Tag } from "vant";
 const data = reactive({

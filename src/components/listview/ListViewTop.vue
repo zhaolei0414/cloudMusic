@@ -125,8 +125,8 @@
 
 
 <script setup>
-import { changeValue } from "@/utils/changeValue.js";
-import { getCommentNew, postCommentLike, postComment } from "@/api/playList.js";
+import { changeValue } from "@/utils/changeValue.ts";
+import { getCommentNew, postCommentLike, postComment } from "@/api/playList.ts";
 import {
   Popup,
   NavBar,
@@ -141,7 +141,7 @@ import {
 import { ref, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import utils from '@/utils/index.js'
+import utils from '@/utils/index.ts'
 const props = defineProps(["playlist"]);
 const route = useRoute();
 const store = useStore();
@@ -200,7 +200,6 @@ const doDownLoad = () => {
   const audio = document.getElementById('playControl_doPlay')
   const downUrl = audio.src
   const fileName = store.state.playlist[store.state.playCurrentIndex].name
-
   // utils.downLoad(downUrl, fileName)
 
 }

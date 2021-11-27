@@ -32,7 +32,7 @@
 
 <script setup>
 import { NavBar, Field, CellGroup, Button, Toast } from "vant";
-import { postLoginInfo } from "@/api/login.js";
+import { postLoginInfo } from "@/api/login.ts";
 import { ref } from "vue";
 // import { useStore } from "vuex";
 const tel = ref("");
@@ -50,7 +50,7 @@ const sendLoginInfo = async () => {
     });
     console.log(result);
     if (result.data.code === 200) {
-      localStorage.setItem("userInfo", JSON.stringify(result.data));
+      localStorage.setItem("userInfo", tsON.stringify(result.data));
       // 将得到的用户信息保存到 localStorage
       localStorage.setItem("token", result.data.token); //暂不知怎么用
       // 保存cookie 请求时带上cookie

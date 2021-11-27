@@ -1,11 +1,6 @@
 <template>
   <div v-if="$route.path === '/login/mobile'" class="mobile">
-    <NavBar
-      title="验证码登录"
-      left-arrow
-      @click-left="$router.go(-1)"
-      :border="false"
-    />
+    <NavBar title="验证码登录" left-arrow @click-left="$router.go(-1)" :border="false" />
     <main class="mobileLoginMain">
       <h4>登录体验更多精彩</h4>
       <span>未注册手机号登录后将自动创建账号</span>
@@ -28,14 +23,8 @@
           color="#D87093"
           class="nextBtn"
           @click="checkTel"
-          >下一步</Button
-        >
-        <div
-          class="loginWithPassword"
-          @click="$router.push({ name: 'PhonePassword' })"
-        >
-          密码登录
-        </div>
+        >下一步</Button>
+        <div class="loginWithPassword" @click="$router.push({ name: 'PhonePassword' })">密码登录</div>
       </CellGroup>
     </main>
   </div>
@@ -51,7 +40,7 @@ import {
   getExistenceCheck,
   getCaptcha,
   postcaptchaVerify
-} from "@/api/login.js";
+} from "@/api/login.ts";
 
 const router = useRouter();
 const route = useRoute();

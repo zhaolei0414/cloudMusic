@@ -53,7 +53,7 @@ const routes = [
             path: 'captcha',
             name: 'Captcha',
             component: () => import('../views/Login/childComponents/Captcha.vue'),
-            beforeEnter: (to, from, next) => {
+            beforeEnter: (to: any, from: any, next: any) => {
               // ...
               if (to.path === '/login/mobile/captcha' && to.query.phone) {
                 next()

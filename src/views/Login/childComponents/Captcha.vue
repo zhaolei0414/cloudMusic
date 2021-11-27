@@ -13,11 +13,7 @@
       class="captchaInput"
     />
     <!-- 数字键盘 -->
-    <NumberKeyboard
-      v-model="value"
-      :show="showKeyboard"
-      @blur="showKeyboard = false"
-    />
+    <NumberKeyboard v-model="value" :show="showKeyboard" @blur="showKeyboard = false" />
   </div>
 </template>
 
@@ -32,7 +28,7 @@ import {
   postcaptchaVerify,
   postLoginInfo,
   getLoginRefresh
-} from "@/api/login.js";
+} from "@/api/login.ts";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -59,7 +55,7 @@ watch(value, async () => {
         captcha: value.value
       });
       console.log(resData.data);
-      localStorage.setItem("userInfo", JSON.stringify(resData.data));
+      localStorage.setItem("userInfo", tsON.stringify(resData.data));
       // 将得到的用户信息保存到 localStorage
       localStorage.setItem("token", resData.data.token); //暂不知怎么用
       // 保存cookie 请求时带上cookie

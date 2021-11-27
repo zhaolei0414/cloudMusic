@@ -151,10 +151,6 @@ const store = useStore();
 */
 // 是否展示弹出框
 const isShowCommentPlaylist = ref(false);
-watch(isShowCommentPlaylist, () => {
-  // 进入评论区影藏底部播放器
-  store.commit("setIsShowAppBottom", !isShowCommentPlaylist.value);
-});
 // List组件下拉刷新
 const loading = ref(false);
 const finished = ref(false);

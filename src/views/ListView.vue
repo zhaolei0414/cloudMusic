@@ -28,6 +28,8 @@ const state = reactive({
 const store = useStore();
 const route = useRoute();
 const id = route.query.id;
+// 设置歌单id
+store.commit('setPlaylistId', id)
 apiPlayListDetail({ id, timestamp: new Date().getTime() }).then(result => {
   state.playlist = result.playlist;
   // console.log(state.playlist.tracks);

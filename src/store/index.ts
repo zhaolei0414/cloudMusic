@@ -3,6 +3,8 @@ import { apigetPlayLyric } from '@/api/playList'
 import { getLoginStatus, getLogout } from "@/api/login";
 export default createStore({
   state: {
+    // 歌单id
+    playlistId: 0,
     // 歌单
     playlist: [
       {
@@ -69,6 +71,9 @@ export default createStore({
     /* 
       控制播放器相关
     */
+    setPlaylistId(state, value: number) {
+      state.playlistId = value
+    },
     setPlaylist(state, value) {
       state.playlist = value
     },

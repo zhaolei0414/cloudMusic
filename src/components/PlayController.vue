@@ -17,13 +17,13 @@
       </div>
     </div>
     <div class="right">
-      <svg v-show="$store.state.paused" class="icon" aria-hidden="true" @click="play">
+      <svg v-show="$store.state.paused" @click="play" class="icon" aria-hidden="true">
         <use xlink:href="#icon-bofang" />
       </svg>
-      <svg v-show="!$store.state.paused" class="icon" aria-hidden="true" @click="play">
+      <svg v-show="!$store.state.paused" @click="play" class="icon" aria-hidden="true">
         <use xlink:href="#icon-zanting" />
       </svg>
-      <svg class="icon" aria-hidden="true">
+      <svg @click="goToPlaylistView" class="icon" aria-hidden="true">
         <use xlink:href="#icon-24gl-playlistMusic" />
       </svg>
     </div>
@@ -55,6 +55,7 @@
 import { ref, computed, nextTick } from "vue";
 import PlayMusic from "@/components/PlayMusic.vue";
 import { mapState, useStore } from "vuex";
+import { useRouter } from 'vue-router'
 import { Toast } from "vant";
 export default {
   components: {
@@ -71,6 +72,7 @@ export default {
     播放
     */
     const store = useStore();
+    const router = useRouter()
     const paused = ref(true);
     const audio = ref(null);
     const play = function () {
@@ -117,6 +119,20 @@ export default {
     const closePopUp = function () {
       show.value = false;
     };
+    /* 
+      跳转到歌单页
+    */
+    const goToPlaylistView = () => {
+      // 0 没有歌单
+      if (store.state.playlistId === 0) return
+      router.push({
+        name: 'ListView',
+        query: {
+          id: store.state.playlistId
+        }
+      })
+    }
+
     /* 
       播放进度
     */
@@ -184,7 +200,8 @@ export default {
       updateCurrentTime,
       loadedmetadata,
       playMode,
-      mode
+      mode,
+      goToPlaylistView
     };
   }
 };
